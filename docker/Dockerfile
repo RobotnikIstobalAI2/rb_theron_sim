@@ -1,8 +1,8 @@
-FROM osrf/ros:noetic-desktop-full
+FROM osrf/ros:melodic-desktop-full
 LABEL Nuria Diaz <ndiaz@robotnik.es>
 
 # Non Root user
-ARG user_name=ros
+ARG user_name=robot
 ARG user_uid=1000
 ARG user_home=/home/$user_name
 ARG user_shell=/bin/bash
@@ -17,16 +17,50 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F42ED6FBAB17C654
 
+
 RUN apt-get update \
 	&& apt-get install -q -y \
 		wget \
 		apt-utils \
 		# dialog \
 		sudo \
+		unzip \
 	&& apt-get clean -q -y \
 	&& apt-get autoremove -q -y \
 	&& rm -rf /var/lib/apt/lists/* \
-	&& echo '%ros ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+	&& echo '%robot ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+# Add gazebo repositories
+RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list
+
+# setup keys
+RUN wget https://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
+
+# Add gazebo repositories
+RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list
+
+# setup keys
+RUN wget https://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
+
+# Gazebo models
+ARG gazebo_models_url=https://github.com/osrf/gazebo_models/archive/refs/heads/master.zip
+ARG gazebo_model_zip_path=/tmp/gazebo_models.zip
+ARG gazebo_model_zip_internal=gazebo_models-master
+ARG gazebo_model_zip_internal_path=/tmp/$gazebo_model_zip_internal
+ARG gazebo_model_path=$user_home/.gazebo
+
+RUN true \
+	&& wget -O $gazebo_model_zip_path $gazebo_models_url \
+	&& true
+RUN true \
+	&& mkdir -p $gazebo_model_path \
+	&& cd $gazebo_model_path \
+	&& unzip $gazebo_model_zip_path \
+	&& mv $gazebo_model_zip_internal models \
+	&& chown -R $user_name: $gazebo_model_path \
+	&& rm $gazebo_model_zip_path \
+	&& true
+
 
 RUN apt-get update \
 	&& apt upgrade -y \
@@ -37,54 +71,21 @@ RUN apt-get update \
 RUN apt-get update \
 	&& apt-get install -q -y \
 		python3-vcstool \
-    && apt-get install -q -y \
-		git \
+		python-catkin-tools \
 	&& apt-get clean -q -y \
 	&& apt-get autoremove -q -y \
 	&& rm -rf /var/lib/apt/lists/*
 
+COPY docker/ros-requirements.txt /tmp
+
 RUN apt-get update \
 	&& apt-get install -q -y \
-		ros-noetic-global-planner \
-		ros-noetic-moveit-fake-controller-manager \
-		ros-noetic-hector-gazebo-plugins \
-		ros-noetic-moveit-planners-ompl \
-		ros-noetic-teb-local-planner \
-		ros-noetic-mavros-msgs \
-		ros-noetic-ros-control \
-		ros-noetic-imu-complementary-filter \
-		#ros-noetic-pr2-moveit-config \
-		ros-noetic-moveit-ros-planning-interface \
-		ros-noetic-velocity-controllers \
-		#ros-noetic-pr2-moveit-plugins \
-		ros-noetic-moveit-ros-visualization \
-		ros-noetic-move-base \
-		ros-noetic-geometric-shapes \
-		#ros-noetic-eband-local-planner \
-		ros-noetic-map-server \
-		ros-noetic-moveit-kinematics \
-		ros-noetic-costmap-2d \
-		ros-noetic-twist-mux \
-		ros-noetic-moveit-ros-perception \
-		ros-noetic-moveit-ros-move-group \
-		ros-noetic-gmapping \
-		ros-noetic-moveit-setup-assistant \
-		ros-noetic-moveit-core \
-		ros-noetic-pr2-arm-kinematics \
-		ros-noetic-robot-localization \
-		ros-noetic-amcl \
-		ros-noetic-joy \
-		ros-noetic-geographic-msgs \
-		ros-noetic-ros-controllers \
-		ros-noetic-effort-controllers \
-		ros-noetic-topic-tools \
-		ros-noetic-tf2-web-republisher \
-		ros-noetic-rosbridge-server \
-		ros-noetic-moveit-simple-controller-manager \
-		ros-noetic-joint-state-publisher-gui \
+	--no-install-recommends \
+		$(eval "echo $(cat /tmp/ros-requirements.txt | xargs)") \
 	&& apt-get clean -q -y \
 	&& apt-get autoremove -q -y \
-	&& rm -rf /var/lib/apt/lists/*
+	&& rm -rf /var/lib/apt/lists/* \
+	&& rm /tmp/ros-requirements.txt
 
 
 COPY docker/ros_entrypoint.sh /
@@ -94,17 +95,8 @@ USER $user_name
 RUN mkdir -p $ck_src_dir
 RUN true \
 	&& echo "PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[00m\]@\[\033[01;31m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> ~/.bashrc \
-	&& echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc \
+	&& echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc \
 	&& echo "source $ck_dir/devel/setup.bash" >> ~/.bashrc
-
-ARG gazebo_model_path=$user_home/.gazebo/
-ARG gazebo_models_url=https://github.com/osrf/gazebo_models.git
-RUN true \
-	&& mkdir -p $gazebo_model_path/models \
-	&& chown -R $user_name: $gazebo_model_path \
-	&& git clone --depth 1 $gazebo_models_url $gazebo_model_path/models \
-	&& rm -rf $gazebo_model_path/models/.git \
-	&& true
 
 WORKDIR $ck_dir
 
@@ -140,9 +132,9 @@ RUN true \
 	&& sudo rm -rf /var/lib/apt/lists/*
 
 RUN true \
-	&& . /opt/ros/noetic/setup.sh \
+	&& . /opt/ros/melodic/setup.sh \
 	&& export ROS_PARALLEL_JOBS=-j$(nproc --all) \
-	&& catkin_make
+	&& catkin build
 
 ARG ign_version=4_4.0.0
 ARG ign_cfg_url=https://raw.githubusercontent.com/ignitionrobotics/ign-fuel-tools/ignition-fuel-tools$ign_version/conf/config.yaml
