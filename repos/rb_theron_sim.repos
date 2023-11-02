@@ -35,15 +35,11 @@ repositories:
   src/pose_publisher:
     type: git
     url: https://github.com/RobotnikAutomation/pose_publisher.git
-    version: 0.1.1
+    version: 0.1.2
   src/spatio_temporal_voxel_layer:
     type: git
     url: https://github.com/SteveMacenski/spatio_temporal_voxel_layer.git
     version: noetic-devel
-  src/rcomponent:
-    type: git
-    url: https://github.com/RobotnikAutomation/rcomponent.git
-    version: master
   src/pad_teleop:
     type: git
     url: https://github.com/RobotnikAutomation/teleop_panel.git
