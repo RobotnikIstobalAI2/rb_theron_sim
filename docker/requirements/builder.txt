@@ -6,6 +6,7 @@ ros-${ROS_DISTRO}-costmap-2d
 ros-${ROS_DISTRO}-effort-controllers
 ros-${ROS_DISTRO}-filters
 ros-${ROS_DISTRO}-gazebo-plugins
+ros-${ROS_DISTRO}-gazebo-ros-control
 ros-${ROS_DISTRO}-geographic-msgs
 ros-${ROS_DISTRO}-geometric-shapes
 ros-${ROS_DISTRO}-global-planner

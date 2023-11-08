@@ -1,12 +1,8 @@
 ---
-version: "3.7"
+name: rb-theron-sim
 services:
-  rb-theron-sim:
-    image: robotnik/rb-theron-sim:melodic-devel
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile
-    # command: "sleep infinity"
+  base:
+    image: robotnik/robotnik-simulations:rb-theron-gazebo-noetic-devel
     network_mode: "host"
     privileged: true
     group_add:
@@ -20,9 +16,9 @@ services:
       QT_X11_NO_MITSHM: 1
       LIBGL_ALWAYS_INDIRECT: 0
 
-      # LAUNCH CONFIG
-      ROS_BU_PKG: "rb_theron_sim_bringup"
-      ROS_BU_LAUNCH: "rb_theron_complete.launch"
+      STARTUP_TYPE: generic
+      GEN_COMMAND: sleep infinity
+      SIGNAL_DESTROY: SIGTERM
 
       # ROBOT QUANTITY
       ROBOT_QTY: 1
@@ -67,11 +63,11 @@ services:
       LAUNCH_LASER_MERGER: "true"
       LAUNCH_WEB_BACKEND: "false"
       LAUNCH_WEB_THROTTLE: "false"
-      LAUNCH_POSE_PUBLISHER: "true"
+      LAUNCH_POSE_PUBLISHER: "false"
 
       # GAZEBO PARAMETERS
       USE_GPU: "false"
-      VERBOSE: "false"
+      VERBOSE: "true"
       GUI: "true"
       DEBUG: "false"
 

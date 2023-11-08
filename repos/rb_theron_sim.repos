@@ -1,12 +1,15 @@
 ---
 repositories:
-  src/rb_theron_sim:
-    type: git
-    url: https://github.com/RobotnikAutomation/rb_theron_sim
-    version: noetic-devel
   src/rb_theron_common:
     type: git
-    url: https://github.com/RobotnikAutomation/rb_theron_common
+    # url: https://github.com/RobotnikAutomation/rb_theron_common
+    url: https://github.com/RobotnikIstobalAI2/rb_theron_common
+    # version: noetic-devel
+    version: 472de84dceb67b98c5d6256b386e388dfd098cbb
+  src/rb_theron_sim:
+    type: git
+    # url: https://github.com/RobotnikAutomation/rb_theron_sim
+    url: https://github.com/RobotnikIstobalAI2/rb_theron_sim
     version: noetic-devel
   src/robotnik_msgs:
     type: git
@@ -15,7 +18,7 @@ repositories:
   src/robotnik_sensors:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_sensors.git
-    version: melodic-devel
+    version: noetic-devel
   src/rcomponent:
     type: git
     url: https://github.com/RobotnikAutomation/rcomponent.git
@@ -35,7 +38,8 @@ repositories:
   src/pose_publisher:
     type: git
     url: https://github.com/RobotnikAutomation/pose_publisher.git
-    version: 0.1.2
+    # version: 0.1.2
+    version: d73b81d2b4d0250127ab5c1c373d5dab481b455e
   src/spatio_temporal_voxel_layer:
     type: git
     url: https://github.com/SteveMacenski/spatio_temporal_voxel_layer.git
@@ -43,4 +47,12 @@ repositories:
   src/pad_teleop:
     type: git
     url: https://github.com/RobotnikAutomation/teleop_panel.git
+    version: master
+  src/robotnik_base_hw_sim:
+    type: git
+    url: https://github.com/RobotnikAutomation/robotnik_base_hw_sim.git
+    version: master
+  src/robot_localization_utils:
+    type: git
+    url: https://github.com/RobotnikAutomation/robot_localization_utils.git
     version: master
