@@ -94,7 +94,7 @@
 		</include>
 
 		<!-- pose publisher -->
-		<include if="$(arg launch_pose_publisher)" file="$(find pose_publisher)/launch/pose_publisher_launch.launch">
+		<include if="$(arg launch_pose_publisher)" file="$(find pose_publisher)/launch/pose_publisher.launch">
 			<arg name="id_robot" default="$(arg id_robot)"/>
 			<arg name="topic_republish" default="$(arg pose_topic_republish)"/>
 			<arg name="frequency" default="$(arg pose_frequency)"/>
