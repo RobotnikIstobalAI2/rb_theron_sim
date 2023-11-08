@@ -16,9 +16,9 @@ services:
       QT_X11_NO_MITSHM: 1
       LIBGL_ALWAYS_INDIRECT: 0
 
-      STARTUP_TYPE: generic
-      GEN_COMMAND: sleep infinity
-      SIGNAL_DESTROY: SIGTERM
+      # STARTUP_TYPE: generic
+      # GEN_COMMAND: sleep infinity
+      # SIGNAL_DESTROY: SIGTERM
 
       # ROBOT QUANTITY
       ROBOT_QTY: 1
@@ -61,9 +61,9 @@ services:
       LAUNCH_PAD: "true"
       LAUNCH_RVIZ: "true"
       LAUNCH_LASER_MERGER: "true"
-      LAUNCH_WEB_BACKEND: "false"
-      LAUNCH_WEB_THROTTLE: "false"
-      LAUNCH_POSE_PUBLISHER: "false"
+      LAUNCH_WEB_BACKEND: "true"
+      LAUNCH_WEB_THROTTLE: "true"
+      LAUNCH_POSE_PUBLISHER: "true"
 
       # GAZEBO PARAMETERS
       USE_GPU: "false"

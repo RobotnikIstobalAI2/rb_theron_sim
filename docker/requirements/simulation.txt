@@ -1,11 +1,17 @@
+ffmpeg
 libblosc-dev
 libblosc1
+libimagequant0
 libopenvdb-dev
 libopenvdb6.2
+python3-bson
+python3-pil
+python3-tornado
 ros-${ROS_DISTRO}-ackermann-msgs
 ros-${ROS_DISTRO}-actionlib
 ros-${ROS_DISTRO}-amcl
 ros-${ROS_DISTRO}-angles
+ros-${ROS_DISTRO}-async-web-server-cpp
 ros-${ROS_DISTRO}-base-local-planner
 ros-${ROS_DISTRO}-bond
 ros-${ROS_DISTRO}-bondcpp
@@ -68,6 +74,11 @@ ros-${ROS_DISTRO}-realtime-tools
 ros-${ROS_DISTRO}-resource-retriever
 ros-${ROS_DISTRO}-robot-localization
 ros-${ROS_DISTRO}-robot-state-publisher
+ros-${ROS_DISTRO}-rosapi
+ros-${ROS_DISTRO}-rosauth
+ros-${ROS_DISTRO}-rosbridge-library
+ros-${ROS_DISTRO}-rosbridge-msgs
+ros-${ROS_DISTRO}-rosbridge-server
 ros-${ROS_DISTRO}-rotate-recovery
 ros-${ROS_DISTRO}-rviz
 ros-${ROS_DISTRO}-smclib
@@ -85,4 +96,5 @@ ros-${ROS_DISTRO}-twist-mux
 ros-${ROS_DISTRO}-twist-mux-msgs
 ros-${ROS_DISTRO}-urdf
 ros-${ROS_DISTRO}-voxel-grid
+ros-${ROS_DISTRO}-web-video-server
 ros-${ROS_DISTRO}-xacro
