@@ -18,6 +18,7 @@ services:
     environment:
       ROS_MASTER_URI: "http://localhost:11311"
       GAZEBO_MASTER_URI: "http://localhost:11345"
+      FAKE_SCREEN: "true"
 
   rviz:
     image: robotnik/robotnik-simulations:rb-theron-gazebo-noetic-devel
