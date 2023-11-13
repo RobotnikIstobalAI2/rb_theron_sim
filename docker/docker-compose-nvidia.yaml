@@ -1,1 +1,35 @@
-docker-compose-nvidia.yaml
+---
+name: rb-theron-sim
+services:
+  base:
+    image: robotnik/robotnik-simulations:rb-theron-gazebo-noetic-devel
+    network_mode: "host"
+    privileged: true
+    group_add:
+      - dialout
+      - plugdev
+      - video
+    env_file:
+      - ../environment/gui/gazebo-params.env
+      - ../environment/gui/launch-components.env
+      - ../environment/gui/robot-params.env
+      - ../environment/gui/robot-qty.env
+      - ../environment/robots-pose.env
+    environment:
+      ROS_MASTER_URI: "http://localhost:11311"
+      GAZEBO_MASTER_URI: "http://localhost:11345"
+      DISPLAY: $DISPLAY
+      QT_X11_NO_MITSHM: 1
+      LIBGL_ALWAYS_INDIRECT: 0
+      NVIDIA_VISIBLE_DEVICES: 0 # or 0,1,2,3 or all
+      NVIDIA_DRIVER_CAPABILITIES: graphics,display # or all
+    runtime: nvidia
+    volumes:
+      - type: bind
+        source: /tmp/.X11-unix
+        target: /tmp/.X11-unix
+      - type: bind
+        source: /dev
+        target: /dev
+    devices:
+      - "/dev/dri"
