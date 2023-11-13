@@ -39,6 +39,7 @@ ros-${ROS_DISTRO}-gmapping
 ros-${ROS_DISTRO}-hardware-interface
 ros-${ROS_DISTRO}-hector-gazebo-plugins
 ros-${ROS_DISTRO}-image-transport
+ros-${ROS_DISTRO}-image-transport-plugins
 ros-${ROS_DISTRO}-imu-complementary-filter
 ros-${ROS_DISTRO}-interactive-markers
 ros-${ROS_DISTRO}-joint-state-controller
