@@ -35,14 +35,14 @@ ARG output_path=/tmp
 ARG output_pkg=${output_path}/deb.pkgs.tar
 ARG base_image="robotnik/ros"
 ARG ros_distro="noetic"
-ARG image_version=0.4.0
+ARG image_base_version=0.4.0
 # With no local copy or the repos
 # base: use the git from vcs
 # local: use the ones from the local repo
 # ARG builder_type=base
 ARG builder_type=local
 
-FROM ${base_image}:${ros_distro}-gui-$image_version as base
+FROM ${base_image}:${ros_distro}-gui-$image_base_version as base
 
 LABEL maintainer="Guillem Gari <ggari@robotnik.es>" \
       org.opencontainers.image.title="rb-theron-noetic" \
@@ -54,7 +54,7 @@ LABEL maintainer="Guillem Gari <ggari@robotnik.es>" \
       org.opencontainers.image.authors="Guillem Gari <ggari@robotnik.es>" \
       org.opencontainers.image.date="2023-11-03"
 
-FROM ${base_image}:${ros_distro}-builder-$image_version as builder_base
+FROM ${base_image}:${ros_distro}-builder-$image_base_version as builder_base
 
 USER root
 
@@ -130,7 +130,7 @@ RUN generate_debs.sh
 ARG output_pkg
 RUN tar -cvzf ${output_pkg} ./debs
 
-FROM ${base_image}:${ros_distro}-builder-$image_version AS compressed
+FROM ${base_image}:${ros_distro}-builder-$image_base_version AS compressed
 
 ARG output_path
 ARG output_pkg
