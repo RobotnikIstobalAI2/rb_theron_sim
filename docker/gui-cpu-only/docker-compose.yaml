@@ -10,7 +10,7 @@ services:
       - plugdev
       - video
     env_file:
-      - ../environment/gui/gazebo-params.env
+      - ../environment/gui/cpu-only/gazebo-params.env
       - ../environment/gui/launch-components.env
       - ../environment/gui/robot-params.env
       - ../environment/gui/robot-qty.env
