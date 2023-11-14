@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<launch>
+	<!-- arg to config the launch file-->
+	<arg name="robot_qty" default="$(optenv ROBOT_QTY 1)" />
+	<arg name="max_instances" value="$(arg robot_qty)" />
+	<arg
+		if="$(eval arg('max_instances') > 1)"
+		name="multirobot"
+		value="true"
+	/>
+	<arg
+		unless="$(eval arg('max_instances') > 1)"
+		name="multirobot"
+		value="false"
+	/>
+
+	<!-- Rviz files -->
+	<arg
+		unless="$(arg multirobot)"
+		name="rviz_config"
+		default="$(find rb_theron_gazebo)/rviz/rb_theron.rviz"
+	/>
+	<arg
+		if="$(arg multirobot)"
+		name="rviz_config"
+		default="$(find rb_theron_gazebo)/rviz/rb_theron_multirobot.rviz"
+	/>
+
+	<!-- rviz visualization -->
+	<include
+		file="$(find rb_theron_gazebo)/launch/rviz.launch"
+	>
+		<arg name="rviz_config" value="$(arg rviz_config)"/>
+	</include>
+</launch>

@@ -19,17 +19,23 @@ services:
       ROS_MASTER_URI: "http://localhost:11311"
       GAZEBO_MASTER_URI: "http://localhost:11345"
       FAKE_SCREEN: "true"
+      # # Uncomment for Debuging
+      # SIGNAL_DESTROY: SIGTERM
+      # STARTUP_TYPE: generic
+      # GENERIC_CMD: sleep infinity
 
   rviz:
     image: robotnik/robotnik-simulations:rb-theron-gazebo-noetic-devel
+    env_file:
+      - ../environment/web/robot-qty.env
     environment:
       ROS_MASTER_URI: "http://gazebo-server:11311"
       GAZEBO_MASTER_URI: "http://gazebo-server:11345"
       VNC_RFBPORT: 5900
-      RVIZ_CONFIG_FILE:
-        /opt/ros/noetic/share/rb_theron_gazebo/rviz/rb_theron.rviz
-      GUI_COMMAND: 'rviz -d $${RVIZ_CONFIG_FILE}'
+      ROS_BU_LAUNCH: rviz_only.launch
+      GUI_COMMAND: 'roslaunch $${ROS_BU_PKG} $${ROS_BU_LAUNCH}'
       STARTUP_TYPE: graphical
+      # SIGNAL_DESTROY: SIGTERM
       GUI_ZENITY_TEXT: "Launch rviz?"
       HEALTHCHECK_NODES: "/rviz"
     volumes:
