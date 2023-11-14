@@ -77,7 +77,7 @@ source=docker/builder/requirements/builder.txt \
 USER ${USER_NAME}
 
 RUN --mount=type=bind,\
-source=./repos/rb_theron_sim.repos,\
+source=./repos/rb_theron_sim.repos.yaml,\
 target=/tmp/common.repo.yml,ro \
      vcs import \
         --input /tmp/common.repo.yml  \

@@ -52,7 +52,7 @@ Create the workspace and clone the repository using the following commands:
 mkdir catkin_ws
 cd catkin_ws
 vcs import --input \
-  https://raw.githubusercontent.com/RobotnikAutomation/rb_theron_sim/noetic-devel/repos/rb_theron_sim.repos
+  https://raw.githubusercontent.com/RobotnikAutomation/rb_theron_sim/noetic-devel/repos/rb_theron_sim.repos.yaml
 rosdep install --from-paths src --ignore-src -y -r
 ```
 
