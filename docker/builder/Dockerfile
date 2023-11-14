@@ -83,6 +83,7 @@ target=/tmp/common.repo.yml,ro \
         --input /tmp/common.repo.yml  \
         --shallow
 
+# Debs tweaks
 RUN true \
 	&& touch ${USER_WORKSPACE}/src/rb_theron_common/rb_theron_navigation_private/CATKIN_IGNORE \
 	&& touch ${USER_WORKSPACE}/src/rb_theron_common/rb_theron_common_private/CATKIN_IGNORE \
@@ -96,6 +97,9 @@ RUN true \
 	&& rm -rf  ${USER_WORKSPACE}/src/rb_theron_common/rb_theron_perception \
 	&& rm -rf  ${USER_WORKSPACE}/src/rb_theron_common/rb_theron_robot_local_control \
 	&& true
+
+# increase the version in order to force to ours
+RUN sed -i "s#<version>1.0.0</version>#<version>1.1.0</version>#" ${USER_WORKSPACE}/src/ira_laser_tools/package.xml
 
 
 # optional use of local repos for simulation
