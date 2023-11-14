@@ -16,6 +16,9 @@ services:
       - ../environment/gui/robot-qty.env
       - ../environment/robots-pose.env
     environment:
+      # SIGNAL_DESTROY: SIGTERM
+      # STARTUP_TYPE: generic
+      # GENERIC_CMD: sleep infinity
       ROS_MASTER_URI: "http://localhost:11311"
       GAZEBO_MASTER_URI: "http://localhost:11345"
       DISPLAY: $DISPLAY
