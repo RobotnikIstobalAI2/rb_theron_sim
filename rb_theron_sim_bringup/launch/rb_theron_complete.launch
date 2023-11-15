@@ -105,6 +105,9 @@
 	<arg name="verbose" default="$(optenv VERBOSE false)"/>
 	<arg name="gui" default="$(optenv GUI false)"/>
 	<arg name="debug" default="$(optenv DEBUG false)"/>
+	<arg name="use_sim_time" default="$(optenv SIM_TIME true)"/>
+	<arg name="paused" default="$(optenv PAUSED false)"/>
+
 
 	<!-- mapping arguments-->
 	<arg
@@ -141,6 +144,8 @@
 			<arg name="debug" value="$(arg debug)"/>
 			<arg name="gui" value="$(arg gui)"/>
 			<arg name="verbose" value="$(arg verbose)"/>
+			<arg name="use_sim_time" value="$(arg use_sim_time)"/>
+			<arg name="paused" value="$(arg paused)"/>
 		</include>
 
 		<!-- rviz visualization -->
