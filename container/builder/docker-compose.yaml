@@ -9,7 +9,7 @@ services:
       args:
         # Base image to contruct current image
         # image_base_version: 0.4.0
-        image_base_version: c1038f3-20231113
+        image_base_version: a07f857-20231115
         ros_distro: noetic
         # With no local copy or the repos
         # base: use the git from vcs

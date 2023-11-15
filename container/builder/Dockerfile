@@ -134,7 +134,7 @@ RUN generate_debs.sh
 ARG output_pkg
 RUN tar -cvzf ${output_pkg} ./debs
 
-FROM ${base_image}:${ros_distro}-builder-$image_base_version AS compressed
+FROM ${base_image}:${ros_distro}-builder-${image_base_version} AS compressed
 
 ARG output_path
 ARG output_pkg
