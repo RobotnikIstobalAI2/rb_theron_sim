@@ -24,7 +24,6 @@ services:
       # GENERIC_CMD: sleep infinity
       ROS_MASTER_URI: "http://localhost:11311"
       GAZEBO_MASTER_URI: "http://localhost:11345"
-      # DISPLAY: $DISPLAY
     runtime: nvidia
     volumes:
       - type: bind
@@ -100,7 +99,7 @@ services:
       STARTUP_TYPE: "generic"
       SIGNAL_DESTROY: SIGTERM
       GEN_COMMAND: |
-        source ~/.bashrc &&
+        source ~/.bashrc && {
         rosservice call /gazebo/set_physics_properties "time_step: $${TIME_STEP}
         max_update_rate: $${MAX_UPDATE_RATE}
         gravity:
@@ -118,5 +117,5 @@ services:
             cfm: 0.0,
             erp: 0.2,
             max_contacts: 20
-        }" &&
-        rosservice call /gazebo/unpause_physics "{}"
+        }" || { echo notworking; exit 1;} ;} &&
+        rosservice call /gazebo/unpause_physics "{}" || exit 1
