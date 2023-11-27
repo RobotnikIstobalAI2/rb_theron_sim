@@ -63,7 +63,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Install compiled packages
 RUN --mount=type=bind,\
 target=/tmp/requirements.txt,\
-source=docker/builder/requirements/builder.txt \
+source=container/builder/requirements/builder.txt \
     true \
     && apt-get update \
     && apt-get install -q -y \
@@ -188,7 +188,7 @@ RUN \
     --mount=\
 type=bind,\
 target=/tmp/requirements.txt,\
-source=docker/builder/requirements/simulation.txt \
+source=container/builder/requirements/simulation.txt \
     true \
     && apt-get update \
     && apt-get install -q -y \
@@ -216,7 +216,7 @@ target=/tmp/debs \
     --mount=\
 type=bind,\
 target=/tmp/requirements.txt,\
-source=docker/builder/requirements/local.txt \
+source=container/builder/requirements/local.txt \
     true \
     && echo "deb [trusted=yes] file:///tmp/debs/ ./" | tee /etc/apt/sources.list.d/debs.list \
     && apt-get update \

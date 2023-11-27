@@ -5,7 +5,7 @@ services:
     image: robotnik/robotnik-simulations:rb-theron-gazebo-noetic-devel
     build:
       context: ../..
-      dockerfile: docker/builder/Dockerfile
+      dockerfile: container/builder/Dockerfile
       args:
         # Base image to contruct current image
         # image_base_version: 0.4.0
