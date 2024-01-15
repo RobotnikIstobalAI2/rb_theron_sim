@@ -1,16 +1,16 @@
 # RB-THERON simulation package
 
-Packages for the simulation of the RB-Theron
+Packages for the simulation of the RB-THERON
 
 - [RB-THERON simulation package](#rb-theron-simulation-package)
   - [Packages](#packages)
     - [rb\_theron\_gazebo](#rb_theron_gazebo)
     - [rb\_theron\_sim\_bringup](#rb_theron_sim_bringup)
-  - [Simulating RB-Theron](#simulating-rb-theron)
+  - [Simulating RB-THERON](#simulating-rb-theron)
     - [Install dependencies](#install-dependencies)
     - [Workspace and repository](#workspace-and-repository)
     - [Compile:](#compile)
-    - [Launch RB-Theron simulation](#launch-rb-theron-simulation)
+    - [Launch RB-THERON simulation](#launch-rb-theron-simulation)
     - [Environment Variables](#environment-variables)
   - [Docker](#docker)
     - [Installation](#installation)
@@ -27,7 +27,7 @@ Launch files and world files to start the models in gazebo
 
 Launch files that launch the complete simulation of the robot
 
-## Simulating RB-Theron
+## Simulating RB-THERON
 
 This are the steps to run the simulation in ros environment. 
 It's assumed that already have installed the following on your system:
@@ -65,7 +65,7 @@ catkin build
 source devel/setup.bash
 ```
 
-### Launch RB-Theron simulation
+### Launch RB-THERON simulation
 
 For default configuration with 1 robot:
 
@@ -79,7 +79,7 @@ if you want to use more than one robot specify the number using the parameter `r
 roslaunch rb_theron_sim_bringup rb_theron_complete.launch robot_qty:=5
 ```
 
-- RB-Theron Omni:
+- RB-THERON Omni:
 
 ```bash
 roslaunch rb_theron_sim_bringup rb_theron_complete.launch xacro_robot:=rb_theron_omni.urdf.xacro use_ros_planar_move_plugin:=true odom_model_type:=omni
@@ -220,7 +220,7 @@ ROBOT_QTY=5 roslaunch rb_theron_sim_bringup rb_theron_complete.launch
 
 ## Docker
 
-The simulation requires a graphical user interface. If you have an nvidia powered machine, you can use the nvidia-containers to use graphical acceleration and improve perfomance.
+The simulation requires a graphical user interface (GUI). If you have an nvidia powered machine, you can use the nvidia-containers to use graphical acceleration and improve perfomance.
 
 ### Installation
 
@@ -236,52 +236,113 @@ The simulation requires a graphical user interface. If you have an nvidia powere
 - nvidia-drivers
 - [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
 
-### Usage
+### Clone the repository
+Before using the RB-THERON simulation with Docker it is necessary to download the repository.
 
 ```bash
-git clone https://github.com/RobotnikAutomation/rb_theron_sim.git
+git clone git@github.com:RobotnikIstobalAI2/rb_theron_sim.git
+```
+
+**NOTE:** please note that all changes made in the RB-THERON repository will not be updated in your local repository. To make sure that your cloned RB-THERON repository is updated use the following commands:
+
+```bash
 cd rb_theron_sim
-git checkout melodic-devel
-nvidia-smi &>/dev/null \
-&& ln -sf docker-compose-nvidia.yaml docker-compose.yaml \
-|| ln -sf docker-compose-intel.yaml docker-compose.yaml
-cd docker
-docker compose up
+git checkout enh/2-update-noetic
+git pull
+cd ..
 ```
 
-**NOTE:** keep in mind that all changes on the rb-theron files, won't be updated to image if you do not rebuild image
-if you want to make sure that every time you rebuild the container use the following command:
+#### Build image
+
+If you have not yet built the RB-THERON image or want to make sure that all changes in the RB-THERON files are updated in the image, you have to build the appropriate RB-THERON image.
+
+You can build the image without launching the simulation by using the following commands:
 
 ```bash
-docker compose up --build
-```
-
-#### Manual Build
-
-If you wish to build the image without launching the simulation use the following commands:
-
-```bash
-cd docker
+cd rb_theron_sim
+git checkout enh/2-update-noetic
+cd container/builder
 docker compose build
+cd ../../..
 ```
 
-### Notes
+**NOTE:** keep in mind that all changes on the RB-THERON files, will not be updated to image if you do not rebuild image. On the other hand, instead of using the command `docker compose build` you can run the command `docker compose build --no-cache` to build (or rebuild) the image without using the cache data.
 
-- This is docker requires a graphical interface
+### Usage
+The RB-THERON simulation can be launched through a native graphical user interface (using CPU or GPU) or via web.
+
+#### Native GUI simulation
+
+```bash
+cd rb_theron_sim
+git checkout enh/2-update-noetic
+cd container
+nvidia-container-cli info  &>/dev/null \
+&& cd gui-gpu-nvidia \
+|| cd gui-cpu-only
+docker compose up -d
+```
+
+#### Web simulation
+
+```bash
+cd rb_theron_sim
+git checkout enh/2-update-noetic
+cd container/web-cpu-only
+docker compose up -d
+```
+
+To access the web interfaces use the following links on your browser:
+
+- **Rviz**: [http://localhost:7080](http://localhost:7080)
+- **Gazebo**: [http://localhost:7082](http://localhost:7082)
+
+
+### Additional information
+
+#### Finalize the Docker simulation
+
+To stop the Docker RB-THERON simulation use in a terminal in the same folder as the `docker-compose.yaml` the following command:
+
+```bash
+docker compose down
+```
+
+#### Enter on the container
+
+If you want to enter on the container, first open another terminal and then you have 2 options:
+
+1. Use the `docker` command with the following structure `docker exec -it rb-theron-sim-<container-name> bash`. For example:
+   ```bash
+   docker exec -it rb-theron-sim-rviz-1 bash
+   ```
+
+   **Note**: Use the double tab key (`[TAB][TAB]`) if you need help to auto-complete the name of the container.
+
+2. Use the `docker compose` command with the following structure `docker compose exec -it <container-name> bash`, for example:
+
+   ```bash
+   docker compose exec -it rviz bash
+   ```
+
+​	**Note**: Use the double tab key (`[TAB][TAB]`) if you need help to auto-complete the name of the container.
+
+**NOTE:** in both cases, to exit from the container run in the terminal the following command:
+
+   ```bash
+   exit
+   ```
+
+#### Other comments
+
+- This docker requires a graphical user interface
 
 - The `ROS_MASTER_URI` is accessible outside the container, so in the host any ros command should work
 
 - You could also run a `roscore` previous to launch the simulation in order to have some processes on the host running
 
-- if you want to enter on the container use the following command in another terminal:
-   ```bash
-   docker exec -it docker-rb-theron-sim-1 bash
-   ```
-- In order to exit you have to 2 options:
-1. Close `gazebo` and `rviz` and wait a bit
 
-2. execute in another terminal in the same folder than the `docker-compose.yml`:
-   
-   ```bash
-   docker compose down
-   ```
+### Detected bug in Docker RB-THERON simulation
+
+In Rviz you can normally move the robots using the "2D Nav Goal" button. The robot that will be moved will be the one with its id is in the respective topics, as you can see in the following image.
+
