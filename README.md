@@ -346,3 +346,23 @@ If you want to enter on the container, first open another terminal and then you 
 
 In Rviz you can normally move the robots using the "2D Nav Goal" button. The robot that will be moved will be the one with its id is in the respective topics, as you can see in the following image.
 
+<p align="center">
+  <img src="doc/robot_to_move.png" height="500"/>
+</p>
+
+In the following video it is shown how to move the robot with id `robot_1`:
+<p align="center">
+  <img src="doc/video_1.gif" height="450"/>
+</p>
+
+To move another robot it is usually as simple as replacing the id of the respective topics with the appropriate robot id (e.g., `robot_2`).
+However, it has been observed that in this simulation there is sometimes a bug which does not allow the topics to be modified, as can be seen in the following video.
+<p align="center">
+  <img src="doc/video_2_bug_detected.gif" height="450"/>
+</p>
+
+To solve this bug, click on "Tool Properties" and you will be able to modify the topics by replacing the `robot_1` id with `robot_2`.
+Then, if the "2D Nav Goal" button is used, the robot with id `robot_2` will move, as can be seen in the following video.
+<p align="center">
+  <img src="doc/video_3_bug_solved.gif" height="450"/>
+</p>
