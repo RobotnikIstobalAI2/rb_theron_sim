@@ -66,7 +66,12 @@ RUN --mount=type=bind,\
 target=/tmp/requirements.txt,\
 source=container/builder/requirements/builder.txt \
     true \
-    && sed -i 's#packages.ros.org#ros.mirror.robotnik.ws#' /etc/apt/sources.list.d/ros-latest.list \
+    && if \
+        curl -IsS http://ros.mirror.robotnik.ws &>/dev/null; then \
+        sed -i \
+            's#packages.ros.org#ros.mirror.robotnik.ws#' \
+            /etc/apt/sources.list.d/ros-latest.list ;\
+        fi \
     && apt-fast update \
     && apt-fast install -q -y \
         --no-install-recommends \
@@ -197,7 +202,12 @@ type=bind,\
 target=/tmp/requirements.txt,\
 source=container/builder/requirements/simulation.txt \
     true \
-    && sed -i 's#packages.ros.org#ros.mirror.robotnik.ws#' /etc/apt/sources.list.d/ros-latest.list \
+    && if \
+        curl -IsS http://ros.mirror.robotnik.ws &>/dev/null; then \
+        sed -i \
+            's#packages.ros.org#ros.mirror.robotnik.ws#' \
+            /etc/apt/sources.list.d/ros-latest.list ;\
+        fi \
     && apt-fast update \
     && apt-fast install -q -y \
         --no-install-recommends \
