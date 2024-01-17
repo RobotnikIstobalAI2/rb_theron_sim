@@ -41,7 +41,7 @@ ARG version="use-args"
 # base: use the git from vcs
 # local: use the ones from the local repo
 # ARG builder_type=base
-ARG builder_type=local
+ARG builder_type="use-args"
 
 FROM ${base_image}:${ros_distro}-gui-$image_base_version as base
 
@@ -60,6 +60,7 @@ FROM ${base_image}:${ros_distro}-builder-$image_base_version as builder_base
 USER root
 
 ENV DEBIAN_FRONTEND=noninteractive
+ARG ros_mirror="user-args"
 
 # Install compiled packages
 RUN --mount=type=bind,\
@@ -67,9 +68,10 @@ target=/tmp/requirements.txt,\
 source=container/builder/requirements/builder.txt \
     true \
     && if \
-        curl -IsS http://ros.mirror.robotnik.ws &>/dev/null; then \
+        curl -IsS http://${ros_mirror} &>/dev/null; \
+        then \
         sed -i \
-            's#packages.ros.org#ros.mirror.robotnik.ws#' \
+            "s#packages.ros.org#${ros_mirror}#" \
             /etc/apt/sources.list.d/ros-latest.list ;\
         fi \
     && apt-fast update \
@@ -196,6 +198,7 @@ FROM base
 
 USER root
 # Install dependancies
+ARG ros_mirror="user-args"
 RUN \
     --mount=\
 type=bind,\
@@ -203,16 +206,17 @@ target=/tmp/requirements.txt,\
 source=container/builder/requirements/simulation.txt \
     true \
     && if \
-        curl -IsS http://ros.mirror.robotnik.ws &>/dev/null; then \
+        curl -IsS http://${ros_mirror} &>/dev/null; \
+        then \
         sed -i \
-            's#packages.ros.org#ros.mirror.robotnik.ws#' \
+            "s#packages.ros.org#${ros_mirror}#" \
             /etc/apt/sources.list.d/ros-latest.list ;\
         fi \
     && apt-fast update \
     && apt-fast install -q -y \
         --no-install-recommends \
         $(eval "echo $(cat /tmp/requirements.txt | xargs)") \
-    && sed -i 's#ros.mirror.robotnik.ws#packages.ros.org#' /etc/apt/sources.list.d/ros-latest.list \
+    && sed -i "s#${ros_mirror}#packages.ros.org#" /etc/apt/sources.list.d/ros-latest.list \
     && apt-get clean -q -y \
     && apt-get autoremove -q -y \
     && rm -rf /var/lib/apt/lists/* \

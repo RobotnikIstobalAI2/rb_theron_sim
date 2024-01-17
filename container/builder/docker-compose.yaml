@@ -15,3 +15,4 @@ services:
         ros_distro: ${ROS_DISTRO}
         version: ${VERSION}
         builder_type: ${BUILDER_TYPE}
+        ros_mirror: ${ROS_MIRROR}
