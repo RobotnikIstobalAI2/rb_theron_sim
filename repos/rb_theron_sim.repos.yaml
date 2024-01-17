@@ -3,14 +3,14 @@ repositories:
   src/rb_theron_common:
     type: git
     # url: https://github.com/RobotnikAutomation/rb_theron_common
-    url: https://github.com/RobotnikIstobalAI2/rb_theron_common
+    url: https://github.com/RobotnikIstobalAI2/rb_theron_common.git
     # version: noetic-devel
     version: d42b1266afcb90272ee9872c50ad47cf8dcf5e3d
   src/rb_theron_sim:
     type: git
     # url: https://github.com/RobotnikAutomation/rb_theron_sim
-    url: https://github.com/RobotnikIstobalAI2/rb_theron_sim
-    version: noetic-devel
+    url: https://github.com/RobotnikIstobalAI2/rb_theron_sim.git
+    version: enh/2-update-noetic
   src/robotnik_msgs:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_msgs.git

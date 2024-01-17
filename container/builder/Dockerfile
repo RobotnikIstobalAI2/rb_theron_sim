@@ -35,7 +35,8 @@ ARG output_path=/tmp
 ARG output_pkg=${output_path}/deb.pkgs.tar
 ARG base_image="robotnik/ros"
 ARG ros_distro="noetic"
-ARG image_base_version=0.4.0
+ARG image_base_version="use-args"
+ARG version="use-args"
 # With no local copy or the repos
 # base: use the git from vcs
 # local: use the ones from the local repo
@@ -45,8 +46,8 @@ ARG builder_type=local
 FROM ${base_image}:${ros_distro}-gui-$image_base_version as base
 
 LABEL maintainer="Guillem Gari <ggari@robotnik.es>" \
-      org.opencontainers.image.title="rb-theron-noetic" \
-      org.opencontainers.image.version="devel" \
+      org.opencontainers.image.title="rb-theron-${ros_distro}" \
+      org.opencontainers.image.version="${version} " \
       org.opencontainers.image.description="RB Theron gazebo simulation." \
       org.opencontainers.image.source="https://github.com/RobotnikAutomation/rb_theron_sim.git" \
       org.opencontainers.image.vendor="Robotnik Automation S.L." \
@@ -65,8 +66,9 @@ RUN --mount=type=bind,\
 target=/tmp/requirements.txt,\
 source=container/builder/requirements/builder.txt \
     true \
-    && apt-get update \
-    && apt-get install -q -y \
+    && sed -i 's#packages.ros.org#ros.mirror.robotnik.ws#' /etc/apt/sources.list.d/ros-latest.list \
+    && apt-fast update \
+    && apt-fast install -q -y \
         --no-install-recommends \
         $(eval "echo $(cat /tmp/requirements.txt | xargs)") \
     && apt-get clean -q -y \
@@ -163,8 +165,8 @@ FROM base AS gazebo-models
 
 USER root
 RUN true \
-    && apt-get update \
-    && apt-get install -q -y \
+    && apt-fast update \
+    && apt-fast install -q -y \
     --no-install-recommends \
         unzip \
 	&& apt-get clean -q -y \
@@ -175,7 +177,12 @@ USER ${USER_NAME}
 RUN true \
     && mkdir -p /tmp/gazebo_models \
     && cd /tmp/gazebo_models \
-    && wget https://codeload.github.com/osrf/gazebo_models/zip/refs/heads/master -O models.zip \
+    && aria2c \
+        --no-conf -c -j 5 -x 10 -s 8 \
+        --min-split-size=1M \
+        --connect-timeout=200 --timeout=200 -m0 \
+        https://codeload.github.com/osrf/gazebo_models/zip/refs/heads/master \
+        -o models.zip \
     && unzip models.zip \
     && mv gazebo_models-master/* . \
     && rm -rf gazebo_models-master models.zip
@@ -190,10 +197,12 @@ type=bind,\
 target=/tmp/requirements.txt,\
 source=container/builder/requirements/simulation.txt \
     true \
-    && apt-get update \
-    && apt-get install -q -y \
+    && sed -i 's#packages.ros.org#ros.mirror.robotnik.ws#' /etc/apt/sources.list.d/ros-latest.list \
+    && apt-fast update \
+    && apt-fast install -q -y \
         --no-install-recommends \
         $(eval "echo $(cat /tmp/requirements.txt | xargs)") \
+    && sed -i 's#ros.mirror.robotnik.ws#packages.ros.org#' /etc/apt/sources.list.d/ros-latest.list \
     && apt-get clean -q -y \
     && apt-get autoremove -q -y \
     && rm -rf /var/lib/apt/lists/* \
@@ -219,8 +228,8 @@ target=/tmp/requirements.txt,\
 source=container/builder/requirements/local.txt \
     true \
     && echo "deb [trusted=yes] file:///tmp/debs/ ./" | tee /etc/apt/sources.list.d/debs.list \
-    && apt-get update \
-    && apt-get install -q -y \
+    && apt-fast update \
+    && apt-fast install -q -y \
         --no-install-recommends \
         $(eval "echo $(cat /tmp/requirements.txt | xargs)") \
     && apt-get clean -q -y \
