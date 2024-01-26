@@ -68,7 +68,7 @@ target=/tmp/requirements.txt,\
 source=container/builder/requirements/builder.txt \
     true \
     && if \
-        curl -IsS http://${ros_mirror} &>/dev/null; \
+        timeout 2 curl -IsS http://${ros_mirror} &>/dev/null; \
         then \
         sed -i \
             "s#packages.ros.org#${ros_mirror}#" \
@@ -206,7 +206,7 @@ target=/tmp/requirements.txt,\
 source=container/builder/requirements/simulation.txt \
     true \
     && if \
-        curl -IsS http://${ros_mirror} &>/dev/null; \
+        timeout 2 curl -IsS http://${ros_mirror} &>/dev/null; \
         then \
         sed -i \
             "s#packages.ros.org#${ros_mirror}#" \
