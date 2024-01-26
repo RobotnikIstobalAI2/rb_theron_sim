@@ -166,11 +166,12 @@ ROBOT_QTY=5 roslaunch rb_theron_sim_bringup rb_theron_complete.launch
 
 #### Gazebo parameters
 
-| Environment | Default Value | Meaning           |
-| ----------- | ------------- | ----------------- |
-| `VERBOSE`   | `false`       | gazebo verbose    |
-| `GUI`       | `false`       | gazebo gui launch |
-| `DEBUG`     | `false`       | gazebo debug      |
+| Environment | Default Value | Meaning               |
+| ----------- | ------------- | --------------------- |
+| `VERBOSE`   | `false`       | gazebo verbose        |
+| `GUI`       | `false`       | gazebo gui launch     |
+| `DEBUG`     | `false`       | gazebo debug          |
+| `USE_GPU`   | `true`        | gazebo gpu plugins    |
 
 #### Pose republisher parameters
 
