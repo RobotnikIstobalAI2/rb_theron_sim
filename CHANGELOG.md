@@ -30,6 +30,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Modified the `rb_theron_gazebo.launch` to launch and configure the pose_publisher node.
 - Modified the `rb_theron_robot.launch` to launch and configure the pose_publisher node.
 - Modified the `rb_theron_sim.repos.yaml` to change the version of the `robotnik_msgs` branch to `ros` (instead of `master`).
+- Updated the `rb_theron_sim.repos.yaml` to change the version of the `rb_theron_common` branch to `noetic-0.1.0`.
+- Updated the `rb_theron_sim.repos.yaml` to change the version of the `rb_theron_sim` branch.
 - Increased the version ira_laser_tools in order to force the installation of our packages.
 - Updated the docker-compose `.yaml` (`nvidia` and `intel`) to add and configure the default values of the new environment variables.
 - Moved the `docker-compose.yaml` of `intel` to `gui-cpu-only`.
