@@ -17,5 +17,10 @@
   <build_depend>robotnik_msgs</build_depend>
   <exec_depend>rcomponent</exec_depend>
   <exec_depend>robotnik_msgs</exec_depend>
+  <exec_depend>robotnik_pad</exec_depend>
+  <exec_depend>rosbridge_server</exec_depend>
+  <exec_depend>web_video_server</exec_depend>
+  <exec_depend>topic_tools</exec_depend>
+  <exec_depend>pose_publisher</exec_depend>
 
 </package>

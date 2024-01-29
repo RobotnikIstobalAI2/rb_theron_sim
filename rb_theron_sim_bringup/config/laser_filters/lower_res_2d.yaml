@@ -1,0 +1,8 @@
+---
+scan_filter_chain:
+  - name: lower_resolution_filter
+    type: laser_filters/LowerResolutionFilter
+    params:
+      reduce_points_factor: 4
+# in Hz
+frequency: 2.0

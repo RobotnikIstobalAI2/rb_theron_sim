@@ -25,9 +25,6 @@ Panels:
     Name: Time
     SyncMode: 0
     SyncSource: 2D LaserScan
-  - Class: rviz_plugin_tutorials/Teleop
-    Name: Teleop
-    Topic: /robot/cmd_vel
   - Class: teleop_panel/Teleop
     CmdVelTopic: /robot/cmd_vel
     EStopTopic: ""

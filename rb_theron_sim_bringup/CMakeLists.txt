@@ -19,6 +19,11 @@ catkin_package(
 
 add_compile_options(-std=c++11)
 
+install(
+  DIRECTORY launch config
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
+
 #   src/${PROJECT_NAME}/${PROJECT_NAME}.cpp
 
 #add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
