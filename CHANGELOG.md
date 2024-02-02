@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added environment variable to `LAUNCH_WEB_THROTTLE` to launch the throttle publisher.
 - Added environment variables in the container structure.
 - Added environment file `.env` for  docker compose unified variables.
-- Added environment file `compose.env` for docker compose.
+- Added environment file `compose-config.env` for docker compose.
 - Added image-transport-plugins for compressed images in the container structure.
 - Added web interface in the container structure (in the folder `web-cpu-only`), so no need of graphical user interface.
 - Added conditional change of the ROS repositories.
