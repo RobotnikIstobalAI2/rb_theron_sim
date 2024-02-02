@@ -37,7 +37,6 @@ services:
 
   fileserver:
     image: robotnik/filebrowser:${FILEBROWSER_VERSION}
-    
     volumes:
       - type: volume
         source: data
