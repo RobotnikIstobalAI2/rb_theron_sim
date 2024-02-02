@@ -248,7 +248,7 @@ git clone git@github.com:RobotnikIstobalAI2/rb_theron_sim.git
 
 ```bash
 cd rb_theron_sim
-git checkout enh/2-update-noetic
+git checkout noetic-0.1.0-rc01
 git pull
 cd ..
 ```
@@ -261,7 +261,7 @@ You can build the image without launching the simulation by using the following 
 
 ```bash
 cd rb_theron_sim
-git checkout enh/2-update-noetic
+git checkout noetic-0.1.0-rc01
 cd container/builder
 docker compose build
 cd ../../..
@@ -276,7 +276,7 @@ The RB-THERON simulation can be launched through a native graphical user interfa
 
 ```bash
 cd rb_theron_sim
-git checkout enh/2-update-noetic
+git checkout noetic-0.1.0-rc01
 cd container
 nvidia-container-cli info  &>/dev/null \
 && cd gui-gpu-nvidia \
@@ -288,7 +288,7 @@ docker compose up -d
 
 ```bash
 cd rb_theron_sim
-git checkout enh/2-update-noetic
+git checkout noetic-0.1.0-rc01
 cd container/web-cpu-only
 docker compose up -d
 ```
