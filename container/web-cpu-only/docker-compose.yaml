@@ -44,7 +44,7 @@ services:
     ports:
       - protocol: tcp
         target: 80
-        published: ${FILEBROWSER_PORT}        
+        published: ${FILEBROWSER_PORT}
         mode: host
 
   rviz:
@@ -120,7 +120,7 @@ services:
       PHP_SERVER: rviz-phpserver
     ports:
       - target: 80
-        published: ${NGINX_RVIZ_PORT}        
+        published: ${NGINX_RVIZ_PORT}
         protocol: tcp
         mode: host
     volumes:
