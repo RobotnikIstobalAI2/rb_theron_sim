@@ -237,6 +237,52 @@ The simulation requires a graphical user interface (GUI). If you have an nvidia 
 - nvidia-drivers
 - [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
 
+### Docker Environment Variables
+To simplify the configuration of the docker compose files, the `compose-config.env` file has been created with the common environment variables for these docker compose in the following path: `rb_theron_sim/container/environment`.
+
+The environment variables of the `compose-config.env` file are the following:
+
+#### Base image
+
+| Environment           | Default Value | Meaning                                        |
+| --------------------- | ------------- | ---------------------------------------------- |
+| `REGISTRY_BASE`       | `""`          | Registry base name                             |
+| `IMAGE_BASE_VERSION`  | `0.5.0`       | Image base version for building the container  |
+| `ROS_DISTRO`          | `noetic`      | ROS distribution                               |
+| `VERSION`             | `devel`       | Repository version (branch or tag)             |
+
+**NOTE:** `REGISTRY_BASE` is the variable to your private registry. Ensure that you add a final `/` in order to work, for example, `registry.robotnik.ws/`. The `REGISTRY_BASE` allows to download the images (if they are present on this registry) without the need of building them locally. By default is blank, which means that it is disabled. 
+
+
+#### ????
+
+| Environment     | Default Value            | Meaning                                        |
+| --------------- | ------------------------ | ---------------------------------------------- |
+| `BUILDER_TYPE`  | `local`                  | ???                                            |
+| `ROS_MIRROR`    | `ros.mirror.robotnik.ws` | ???                                            |
+
+#### Image versions used in the web docker compose file
+
+| Environment            | Default Value           | Meaning                                     |
+| ---------------------- | ----------------------- | ------------------------------------------- |
+| `NOVNC_VERSION`        | `web-1.3.0-2-rc02`      | Image base version for webfiles             |
+| `FILEBROWSER_VERSION`  | `2.24.2-1`              | Image base version for file server browser  |
+| `WEBSOCKIFY_VERSION`   | `backend-0.11.0-1`      | Image base version for Rviz websocket       |
+| `NGINX_VERSION`        | `1.25.3-alpine3.18`     | Image base version for Rviz webserver       |
+| `PHP_VERSION`          | `8.0.30-fpm-alpine3.16` | Image base version for Rviz PHP server      |
+
+
+#### Ports used in the web docker compose file
+
+| Environment        | Default Value  | Meaning                              |
+| ------------------ | -------------- | ------------------------------------ |
+| `FILEBROWSER_PORT` | `7081`         | Port of the file server browser      |
+| `WS_RVIZ_PORT`     | `7083`         | Port of the Rviz websocket           |
+| `NGINX_RVIZ_PORT`  | `7080`         | Port of the Rviz webserver           |
+| `WS_GZ_PORT`       | `7085`         | Port of the Gazebo client websocket  |
+| `NGINX_GZ_PORT`    | `7082`         | Port of the Gazebo client webserver  |
+
+
 ### Clone the repository
 Before using the RB-THERON simulation with Docker it is necessary to download the repository.
 
