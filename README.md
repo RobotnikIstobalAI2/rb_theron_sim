@@ -2,24 +2,23 @@
 
 Packages for the simulation of the RB-THERON
 
--   [Packages](#packages)
-    -   [rb\_theron\_gazebo](#rb_theron_gazebo)
-    -   [rb\_theron\_sim\_bringup](#rb_theron_sim_bringup)
--   [Simulating RB-THERON](#simulating-rb-theron)
-    -   [Install dependencies](#install-dependencies)
-    -   [Workspace and repository](#workspace-and-repository)
-    -   [Compile:](#compile)
-    -   [Launch RB-THERON simulation](#launch-rb-theron-simulation)
-    -   [Environment Variables](#environment-variables)
--   [Docker](#docker)
-    -   [Installation](#installation)
-    -   [Docker Environment
-        Variables](#docker-environment-variables)
-    -   [Clone the repository](#clone-the-repository)
-    -   [Usage](#usage)
-    -   [Additional information](#additional-information)
-    -   [Detected bug in Docker RB-THERON
-        simulation](#detected-bug-in-docker-rb-theron-simulation)
+- [Packages](#packages)
+  - [rb\_theron\_gazebo](#rb_theron_gazebo)
+  - [rb\_theron\_sim\_bringup](#rb_theron_sim_bringup)
+- [Simulating RB-THERON](#simulating-rb-theron)
+  - [Install dependencies](#install-dependencies)
+  - [Workspace and repository](#workspace-and-repository)
+  - [Compile:](#compile)
+  - [Launch RB-THERON simulation](#launch-rb-theron-simulation)
+  - [Environment Variables](#environment-variables)
+- [Docker](#docker)
+  - [System Installation](#system-installation)
+  - [Simulation installation](#simulation-installation)
+  - [Usage](#usage)
+  - [Docker Environment
+    Variables](#docker-environment-variables)
+  - [Additional information](#additional-information)
+  - [Known bugs](#known-bugs)
 
 ## Packages
 
@@ -77,7 +76,7 @@ For default configuration with 1 robot:
 roslaunch rb_theron_sim_bringup rb_theron_complete.launch
 ```
 
-if you want to use more than one robot specify the number using the parameter `robot_qty` or the environment varialble `ROBOT_QTY`:
+if you want to use more than one robot specify the number using the parameter `robot_qty` or the environment variable `ROBOT_QTY`:
 
 ```bash
 roslaunch rb_theron_sim_bringup rb_theron_complete.launch robot_qty:=5
@@ -170,12 +169,12 @@ ROBOT_QTY=5 roslaunch rb_theron_sim_bringup rb_theron_complete.launch
 
 #### Gazebo parameters
 
-| Environment | Default Value | Meaning               |
-| ----------- | ------------- | --------------------- |
-| `VERBOSE`   | `false`       | gazebo verbose        |
-| `GUI`       | `false`       | gazebo gui launch     |
-| `DEBUG`     | `false`       | gazebo debug          |
-| `USE_GPU`   | `true`        | gazebo gpu plugins    |
+| Environment | Default Value | Meaning            |
+| ----------- | ------------- | ------------------ |
+| `VERBOSE`   | `false`       | gazebo verbose     |
+| `GUI`       | `false`       | gazebo gui launch  |
+| `DEBUG`     | `false`       | gazebo debug       |
+| `USE_GPU`   | `true`        | gazebo gpu plugins |
 
 #### Pose republisher parameters
 
@@ -211,7 +210,7 @@ ROBOT_QTY=5 roslaunch rb_theron_sim_bringup rb_theron_complete.launch
 | Environment               | Default Value        | Meaning                                 |
 | ------------------------- | -------------------- | --------------------------------------- |
 | `ROBOT_WEB_PAD_PLUGIN`    | `web_pad`            | web pad configuration file              |
-| `ROBOT_WEB_PAD_TOPIC`     | `web_joy`            | web pad joy toppic                      |
+| `ROBOT_WEB_PAD_TOPIC`     | `web_joy`            | web pad joy topic                       |
 | `ROBOT_WEB_PAD_TWISTMUX`  | `web_teleop/cmd_vel` | topic to publish cmd_vel                |
 | `ROBOT_WEB_VIDEO_QUALITY` | `50`                 | quality of transmission of video server |
 
@@ -219,15 +218,15 @@ ROBOT_QTY=5 roslaunch rb_theron_sim_bringup rb_theron_complete.launch
 
 | Environment                      | Default Value | Meaning                          |
 | -------------------------------- | ------------- | -------------------------------- |
-| `ROBOT_WEB_VIDEO_SERVER_ADDRESS` | `0.0.0.0`     | allowed ips for web video server |
+| `ROBOT_WEB_VIDEO_SERVER_ADDRESS` | `0.0.0.0`     | allowed IPs for web video server |
 | `ROBOT_WEB_VIDEO_SERVER_PORT`    | `8092`        | port for web video server        |
 | `ROBOT_WEB_VIDEO_TRANSPORT`      | `compressed`  | type of video transport          |
 
 ## Docker
 
-The simulation requires a graphical user interface (GUI). If you have an nvidia powered machine, you can use the nvidia-containers to use graphical acceleration and improve perfomance.
+The simulation requires a graphical user interface (GUI). If you have an nvidia powered machine, you can use the nvidia-containers to use graphical acceleration and improve performance.
 
-### Installation
+### System Installation
 
 #### Intel GPU
 
@@ -241,53 +240,8 @@ The simulation requires a graphical user interface (GUI). If you have an nvidia 
 - nvidia-drivers
 - [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
 
-### Docker Environment Variables
-To simplify the configuration of the docker compose files, the `compose-config.env` file has been created with the common environment variables for these docker compose in the following path: `rb_theron_sim/container/environment`.
+### Simulation installation
 
-The environment variables of the `compose-config.env` file are the following:
-
-#### Base image
-
-| Environment           | Default Value | Meaning                                        |
-| --------------------- | ------------- | ---------------------------------------------- |
-| `REGISTRY_BASE`       | `""`          | Registry base name                             |
-| `IMAGE_BASE_VERSION`  | `0.5.0`       | Image base version for building the container  |
-| `ROS_DISTRO`          | `noetic`      | ROS distribution                               |
-| `VERSION`             | `devel`       | Repository version (branch or tag)             |
-
-**NOTE:** `REGISTRY_BASE` is the variable to your private registry. Ensure that you add a final `/` in order to work, for example, `registry.robotnik.ws/`. The `REGISTRY_BASE` allows to download the images (if they are present on this registry) without the need of building them locally. By default is blank, which means that it is disabled. 
-
-
-#### ????
-
-| Environment     | Default Value            | Meaning                                        |
-| --------------- | ------------------------ | ---------------------------------------------- |
-| `BUILDER_TYPE`  | `local`                  | ???                                            |
-| `ROS_MIRROR`    | `ros.mirror.robotnik.ws` | ???                                            |
-
-#### Image versions used in the web docker compose file
-
-| Environment            | Default Value           | Meaning                                     |
-| ---------------------- | ----------------------- | ------------------------------------------- |
-| `NOVNC_VERSION`        | `web-1.3.0-2-rc02`      | Image base version for webfiles             |
-| `FILEBROWSER_VERSION`  | `2.24.2-1`              | Image base version for file server browser  |
-| `WEBSOCKIFY_VERSION`   | `backend-0.11.0-1`      | Image base version for Rviz websocket       |
-| `NGINX_VERSION`        | `1.25.3-alpine3.18`     | Image base version for Rviz webserver       |
-| `PHP_VERSION`          | `8.0.30-fpm-alpine3.16` | Image base version for Rviz PHP server      |
-
-
-#### Ports used in the web docker compose file
-
-| Environment        | Default Value  | Meaning                              |
-| ------------------ | -------------- | ------------------------------------ |
-| `FILEBROWSER_PORT` | `7081`         | Port of the file server browser      |
-| `WS_RVIZ_PORT`     | `7083`         | Port of the Rviz websocket           |
-| `NGINX_RVIZ_PORT`  | `7080`         | Port of the Rviz webserver           |
-| `WS_GZ_PORT`       | `7085`         | Port of the Gazebo client websocket  |
-| `NGINX_GZ_PORT`    | `7082`         | Port of the Gazebo client webserver  |
-
-
-### Clone the repository
 Before using the RB-THERON simulation with Docker it is necessary to download the repository.
 
 ```bash
@@ -320,6 +274,7 @@ cd ../../..
 **NOTE:** keep in mind that all changes on the RB-THERON files, will not be updated to image if you do not rebuild image. On the other hand, instead of using the command `docker compose build` you can run the command `docker compose build --no-cache` to build (or rebuild) the image without using the cache data.
 
 ### Usage
+
 The RB-THERON simulation can be launched through a native graphical user interface (using CPU or GPU) or via web.
 
 #### Native GUI simulation
@@ -348,6 +303,56 @@ To access the web interfaces use the following links on your browser:
 - **Rviz**: [http://localhost:7080](http://localhost:7080)
 - **Gazebo**: [http://localhost:7082](http://localhost:7082)
 
+### Docker Environment Variables
+
+To simplify the configuration of the docker compose files, the [compose-config.env](./container/environment/compose-config.env) file has been created with the common environment variables for all docker compose files.
+
+The environment variables of the `compose-config.env` file are the following:
+
+#### Base image
+
+| Environment          | Default Value | Meaning                                       |
+| -------------------- | ------------- | --------------------------------------------- |
+| `REGISTRY_BASE`      | `""`          | Registry base name                            |
+| `IMAGE_BASE_VERSION` | `0.5.0`       | Image base version for building the container |
+| `ROS_DISTRO`         | `noetic`      | ROS distribution                              |
+| `VERSION`            | `devel`       | Repository version (branch or tag)            |
+
+**NOTE:** `REGISTRY_BASE` is the variable to your private registry. Ensure that you add a final `/` in order to work, for example, `registry.robotnik.ws/`. The `REGISTRY_BASE` allows to download the images (if they are present on this registry) without the need of building them locally. By default is blank, which means that it is disabled. 
+
+#### Additional parameters
+
+| Environment    | Default Value            | Meaning                                                       |
+| -------------- | ------------------------ | ------------------------------------------------------------- |
+| `BUILDER_TYPE` | `local`                  | override or not git simulation code with local changes        |
+| `ROS_MIRROR`   | `ros.mirror.robotnik.ws` | ros apt mirror to use in order to increase the download speed |
+
+**NOTE:** the environment `BUILDER_TYPE` could have the following values:
+
+| Value   | Meaning                                                     |
+| ------- | ----------------------------------------------------------- |
+| `base`  | use the simulation repository obtained in git from vcs file |
+| `local` | override simulation with local changes                      |
+
+#### Image versions used in the web docker compose file
+
+| Environment           | Default Value           | Meaning                                    |
+| --------------------- | ----------------------- | ------------------------------------------ |
+| `NOVNC_VERSION`       | `web-1.3.0-2-rc02`      | Image base version for web files           |
+| `FILEBROWSER_VERSION` | `2.24.2-1`              | Image base version for file server browser |
+| `WEBSOCKIFY_VERSION`  | `backend-0.11.0-1`      | Image base version for Rviz websocket      |
+| `NGINX_VERSION`       | `1.25.3-alpine3.18`     | Image base version for Rviz webserver      |
+| `PHP_VERSION`         | `8.0.30-fpm-alpine3.16` | Image base version for Rviz PHP server     |
+
+#### Ports used in the web docker compose file
+
+| Environment        | Default Value | Meaning                             |
+| ------------------ | ------------- | ----------------------------------- |
+| `FILEBROWSER_PORT` | `7081`        | Port of the file server browser     |
+| `WS_RVIZ_PORT`     | `7083`        | Port of the Rviz websocket          |
+| `NGINX_RVIZ_PORT`  | `7080`        | Port of the Rviz webserver          |
+| `WS_GZ_PORT`       | `7085`        | Port of the Gazebo client websocket |
+| `NGINX_GZ_PORT`    | `7082`        | Port of the Gazebo client webserver |
 
 ### Additional information
 
@@ -364,25 +369,26 @@ docker compose down
 If you want to enter on the container, first open another terminal and then you have 2 options:
 
 1. Use the `docker` command with the following structure `docker exec -it rb-theron-sim-<container-name> bash`. For example:
+   
    ```bash
    docker exec -it rb-theron-sim-rviz-1 bash
    ```
-
+   
    **Note**: Use the double tab key (`[TAB][TAB]`) if you need help to auto-complete the name of the container.
 
 2. Use the `docker compose` command with the following structure `docker compose exec -it <container-name> bash`, for example:
-
+   
    ```bash
    docker compose exec -it rviz bash
    ```
 
-​	**Note**: Use the double tab key (`[TAB][TAB]`) if you need help to auto-complete the name of the container.
+​    **Note**: Use the double tab key (`[TAB][TAB]`) if you need help to auto-complete the name of the container.
 
 **NOTE:** in both cases, to exit from the container run in the terminal the following command:
 
-   ```bash
-   exit
-   ```
+```bash
+exit
+```
 
 #### Other comments
 
@@ -392,8 +398,9 @@ If you want to enter on the container, first open another terminal and then you 
 
 - You could also run a `roscore` previous to launch the simulation in order to have some processes on the host running
 
+### Known bugs
 
-### Detected bug in Docker RB-THERON simulation
+#### Can't change RVIZ  2D Nav goal topic
 
 In Rviz you can normally move the robots using the "2D Nav Goal" button. The robot that will be moved will be the one with its id is in the respective topics, as you can see in the following image.
 
@@ -402,18 +409,23 @@ In Rviz you can normally move the robots using the "2D Nav Goal" button. The rob
 </p>
 
 In the following video it is shown how to move the robot with id `robot_1`:
+
 <p align="center">
   <img src="doc/video_1.gif" height="450"/>
 </p>
 
 To move another robot it is usually as simple as replacing the id of the respective topics with the appropriate robot id (e.g., `robot_2`).
 However, it has been observed that in this simulation there is sometimes a bug which does not allow the topics to be modified, as can be seen in the following video.
+
 <p align="center">
   <img src="doc/video_2_bug_detected.gif" height="450"/>
 </p>
 
+##### Workaround
+
 To solve this bug, click on "Tool Properties" and you will be able to modify the topics by replacing the `robot_1` id with `robot_2`.
 Then, if the "2D Nav Goal" button is used, the robot with id `robot_2` will move, as can be seen in the following video.
+
 <p align="center">
   <img src="doc/video_3_bug_solved.gif" height="450"/>
 </p>
