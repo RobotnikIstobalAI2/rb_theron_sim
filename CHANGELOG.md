@@ -43,4 +43,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated `README.md` file.
   - Update environment variables.
   - Updated docker usage.
+  - Update docker environment variables.
 - Updated `CHANGELOG.md` file.
