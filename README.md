@@ -252,7 +252,7 @@ git clone git@github.com:RobotnikIstobalAI2/rb_theron_sim.git
 
 ```bash
 cd rb_theron_sim
-git checkout noetic-devel
+git checkout noetic-0.1.0
 git pull
 cd ..
 ```
@@ -265,7 +265,7 @@ You can build the image without launching the simulation by using the following 
 
 ```bash
 cd rb_theron_sim
-git checkout noetic-devel
+git checkout noetic-0.1.0
 cd container/builder
 docker compose build
 cd ../../..
@@ -281,7 +281,7 @@ The RB-THERON simulation can be launched through a native graphical user interfa
 
 ```bash
 cd rb_theron_sim
-git checkout noetic-devel
+git checkout noetic-0.1.0
 cd container
 nvidia-container-cli info  &>/dev/null \
 && cd gui-gpu-nvidia \
@@ -293,7 +293,7 @@ docker compose up -d
 
 ```bash
 cd rb_theron_sim
-git checkout noetic-devel
+git checkout noetic-0.1.0
 cd container/web-cpu-only
 docker compose up -d
 ```
@@ -311,12 +311,12 @@ The environment variables of the `compose-config.env` file are the following:
 
 #### Base image
 
-| Environment          | Default Value | Meaning                                       |
-| -------------------- | ------------- | --------------------------------------------- |
-| `REGISTRY_BASE`      | `""`          | Registry base name                            |
-| `IMAGE_BASE_VERSION` | `0.5.0`       | Image base version for building the container |
-| `ROS_DISTRO`         | `noetic`      | ROS distribution                              |
-| `VERSION`            | `devel`       | Repository version (branch or tag)            |
+| Environment          | Default Value  | Meaning                                       |
+| -------------------- | -------------- | --------------------------------------------- |
+| `REGISTRY_BASE`      | `""`           | Registry base name                            |
+| `IMAGE_BASE_VERSION` | `0.5.0`        | Image base version for building the container |
+| `ROS_DISTRO`         | `noetic`       | ROS distribution                              |
+| `VERSION`            | `noetic-0.1.0` | Repository version (branch or tag)            |
 
 **NOTE:** `REGISTRY_BASE` is the variable to your private registry. Ensure that you add a final `/` in order to work, for example, `registry.robotnik.ws/`. The `REGISTRY_BASE` allows to download the images (if they are present on this registry) without the need of building them locally. By default is blank, which means that it is disabled. 
 
