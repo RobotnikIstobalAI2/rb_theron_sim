@@ -2,20 +2,24 @@
 
 Packages for the simulation of the RB-THERON
 
-- [RB-THERON simulation package](#rb-theron-simulation-package)
-  - [Packages](#packages)
-    - [rb\_theron\_gazebo](#rb_theron_gazebo)
-    - [rb\_theron\_sim\_bringup](#rb_theron_sim_bringup)
-  - [Simulating RB-THERON](#simulating-rb-theron)
-    - [Install dependencies](#install-dependencies)
-    - [Workspace and repository](#workspace-and-repository)
-    - [Compile:](#compile)
-    - [Launch RB-THERON simulation](#launch-rb-theron-simulation)
-    - [Environment Variables](#environment-variables)
-  - [Docker](#docker)
-    - [Installation](#installation)
-    - [Usage](#usage)
-    - [Notes](#notes)
+-   [Packages](#packages)
+    -   [rb\_theron\_gazebo](#rb_theron_gazebo)
+    -   [rb\_theron\_sim\_bringup](#rb_theron_sim_bringup)
+-   [Simulating RB-THERON](#simulating-rb-theron)
+    -   [Install dependencies](#install-dependencies)
+    -   [Workspace and repository](#workspace-and-repository)
+    -   [Compile:](#compile)
+    -   [Launch RB-THERON simulation](#launch-rb-theron-simulation)
+    -   [Environment Variables](#environment-variables)
+-   [Docker](#docker)
+    -   [Installation](#installation)
+    -   [Docker Environment
+        Variables](#docker-environment-variables)
+    -   [Clone the repository](#clone-the-repository)
+    -   [Usage](#usage)
+    -   [Additional information](#additional-information)
+    -   [Detected bug in Docker RB-THERON
+        simulation](#detected-bug-in-docker-rb-theron-simulation)
 
 ## Packages
 
