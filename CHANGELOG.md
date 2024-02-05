@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [noetic-0.1.0] - 2024-02-05
+
 ### Added
 - Added multirobot support with the environment variable `ROBOT_QTY` can simulate up 5 robots.
 - Added [pose_publisher](https://github.com/RobotnikAutomation/pose_publisher) repository to `repos`file.
