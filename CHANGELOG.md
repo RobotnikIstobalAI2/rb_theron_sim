@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Added in `repos/rb_theron_sim.repos.yaml` the repository `gazebo_ros_pkgs` with the branch `noetic-devel`.
+
+### Changed
+- Modified in `repos/rb_theron_sim.repos.yaml` the branch of the repository `rb_theron_common` from `noetic-0.1.0` to `noetic-devel`.
+
+
 ## [noetic-0.1.0] - 2024-02-05
 
 ### Added
