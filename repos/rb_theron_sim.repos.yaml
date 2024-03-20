@@ -4,11 +4,15 @@ repositories:
     type: git
     # url: https://github.com/RobotnikAutomation/rb_theron_common
     url: https://github.com/RobotnikIstobalAI2/rb_theron_common.git
-    version: noetic-0.1.0
+    version: noetic-devel
   src/rb_theron_sim:
     type: git
     # url: https://github.com/RobotnikAutomation/rb_theron_sim
     url: https://github.com/RobotnikIstobalAI2/rb_theron_sim.git
+    version: noetic-devel
+  src/gazebo_ros_pkgs:
+    type: git
+    url: https://github.com/RobotnikAutomation/gazebo_ros_pkgs.git
     version: noetic-devel
   src/robotnik_msgs:
     type: git

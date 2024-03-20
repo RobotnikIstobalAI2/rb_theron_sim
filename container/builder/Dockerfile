@@ -242,9 +242,14 @@ target=/tmp/requirements.txt,\
 source=container/builder/requirements/local.txt \
     true \
     && echo "deb [trusted=yes] file:///tmp/debs/ ./" | tee /etc/apt/sources.list.d/debs.list \
+    && echo -e "Package: *\nPin: origin \"\"\nPin-Priority: 900" | tee /etc/apt/preferences.d/99local \
     && apt-fast update \
+    && apt-fast remove -q -y \
+        --purge \
+        ros-${ROS_DISTRO}-gazebo-ros-control \
     && apt-fast install -q -y \
         --no-install-recommends \
+        ros-${ROS_DISTRO}-gazebo-ros-control \
         $(eval "echo $(cat /tmp/requirements.txt | xargs)") \
     && apt-get clean -q -y \
     && apt-get autoremove -q -y \
