@@ -1,0 +1,36 @@
+---
+name: Container image creation
+# author: "Guillem Gari <ggari@robotnik.es>"
+# description: "Creates container image and push it to the registry"
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+-rc[0-9]+'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and upload image
+    runs-on:
+      - self-hosted
+      - internal-robotnik
+      - linux
+      - kubernetes
+    steps:
+      - uses: actions/checkout@v4
+      - name: Login to Robotnik Registry
+        uses: docker/login-action@v2
+        with:
+          registry: registry.robotnik.ws
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Build image and push
+        env:
+          REGISTRY_BASE: ${{ vars.REGISTRY_BASE }}
+          IMAGE_NAME: ${{ vars.IMAGE_NAME }}
+          REGISTRY_PROJECT: ${{ vars.REGISTRY_PROJECT }}
+        run: |
+          cd container/builder
+          docker compose -f ci.yaml build --push

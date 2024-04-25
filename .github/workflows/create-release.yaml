@@ -1,5 +1,5 @@
 ---
-name: Docker image Push to Google Artifact Registry
+name: Github Release Creator
 on:
   push:
     tags:
