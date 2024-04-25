@@ -9,7 +9,7 @@ volumes:
 services:
   gazebo-server:
     image: >-
-      robotnik/robotnik-simulations:rb-theron-gazebo-${ROS_DISTRO}-${VERSION}
+      robotnik/robotnik-simulations:rb-theron-gazebo-${DOCKER_ROS_DISTRO}-${VERSION}
     env_file:
       - ../environment/web/gazebo-params.env
       - ../environment/web/launch-components.env
@@ -49,7 +49,7 @@ services:
 
   rviz:
     image: >-
-      robotnik/robotnik-simulations:rb-theron-gazebo-${ROS_DISTRO}-${VERSION}
+      robotnik/robotnik-simulations:rb-theron-gazebo-${DOCKER_ROS_DISTRO}-${VERSION}
     env_file:
       - ../environment/web/robot-qty.env
       - ../environment/web/uri-params.env
@@ -67,7 +67,7 @@ services:
 
   physics-change:
     image: >-
-      robotnik/robotnik-simulations:rb-theron-gazebo-${ROS_DISTRO}-${VERSION}
+      robotnik/robotnik-simulations:rb-theron-gazebo-${DOCKER_ROS_DISTRO}-${VERSION}
     restart: on-failure
     env_file:
       - ../environment/gazebo-physics.env
@@ -143,7 +143,7 @@ services:
 
   gz-client:
     image: >-
-      robotnik/robotnik-simulations:rb-theron-gazebo-${ROS_DISTRO}-${VERSION}
+      robotnik/robotnik-simulations:rb-theron-gazebo-${DOCKER_ROS_DISTRO}-${VERSION}
     env_file:
       - ../environment/web/robot-qty.env
       - ../environment/web/uri-params.env

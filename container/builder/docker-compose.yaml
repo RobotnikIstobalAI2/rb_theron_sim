@@ -3,7 +3,7 @@ name: rb-theron-sim
 services:
   core:
     image: >-
-      robotnik/robotnik-simulations:rb-theron-gazebo-${ROS_DISTRO}-${VERSION}
+      robotnik/robotnik-simulations:rb-theron-gazebo-${DOCKER_ROS_DISTRO}-${VERSION}
     build:
       pull: true
       no_cache: true
@@ -12,7 +12,7 @@ services:
       args:
         base_image: ${REGISTRY_BASE}robotnik/ros
         image_base_version: ${IMAGE_BASE_VERSION}
-        ros_distro: ${ROS_DISTRO}
+        ros_distro: ${DOCKER_ROS_DISTRO}
         version: ${VERSION}
         builder_type: ${BUILDER_TYPE}
         ros_mirror: ${ROS_MIRROR}

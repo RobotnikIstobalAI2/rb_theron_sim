@@ -3,7 +3,7 @@ name: rb-theron-sim
 services:
   gazebo-server:
     image: >-
-      robotnik/robotnik-simulations:rb-theron-gazebo-${ROS_DISTRO}-${VERSION}
+      robotnik/robotnik-simulations:rb-theron-gazebo-${DOCKER_ROS_DISTRO}-${VERSION}
     network_mode: "host"
     privileged: true
     group_add:
@@ -36,7 +36,7 @@ services:
 
   rviz:
     image: >-
-      robotnik/robotnik-simulations:rb-theron-gazebo-${ROS_DISTRO}-${VERSION}
+      robotnik/robotnik-simulations:rb-theron-gazebo-${DOCKER_ROS_DISTRO}-${VERSION}
     network_mode: "host"
     privileged: true
     env_file:
@@ -58,7 +58,7 @@ services:
 
   gazebo-client:
     image: >-
-      robotnik/robotnik-simulations:rb-theron-gazebo-${ROS_DISTRO}-${VERSION}
+      robotnik/robotnik-simulations:rb-theron-gazebo-${DOCKER_ROS_DISTRO}-${VERSION}
     network_mode: "host"
     env_file:
       - ../environment/gui/robot-qty.env
@@ -81,7 +81,7 @@ services:
 
   physics-change:
     image: >-
-      robotnik/robotnik-simulations:rb-theron-gazebo-${ROS_DISTRO}-${VERSION}
+      robotnik/robotnik-simulations:rb-theron-gazebo-${DOCKER_ROS_DISTRO}-${VERSION}
     network_mode: "host"
     restart: on-failure
     env_file:
