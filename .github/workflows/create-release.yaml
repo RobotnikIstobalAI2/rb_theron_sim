@@ -11,7 +11,11 @@ on:
 jobs:
   build:
     name: Create Release
-    runs-on: ubuntu-latest
+    runs-on:
+      - self-hosted
+      - internal-robotnik
+      - linux
+      - kubernetes
     steps:
       - uses: actions/checkout@v2
       - uses: CSchoel/release-notes-from-changelog@v1.3.0
