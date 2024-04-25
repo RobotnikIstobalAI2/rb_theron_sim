@@ -1,3 +1,4 @@
+ros-${ROS_DISTRO}-gazebo-ros-control
 ros-${ROS_DISTRO}-ira-laser-tools
 ros-${ROS_DISTRO}-laser-filters
 ros-${ROS_DISTRO}-pose-publisher

@@ -43,7 +43,7 @@ ARG version="use-args"
 # ARG builder_type=base
 ARG builder_type="use-args"
 
-FROM ${base_image}:${ros_distro}-gui-$image_base_version as base
+FROM ${base_image}:${ros_distro}-gui-${image_base_version} as base
 
 LABEL maintainer="Guillem Gari <ggari@robotnik.es>" \
       org.opencontainers.image.title="rb-theron-${ros_distro}" \
@@ -249,7 +249,6 @@ source=container/builder/requirements/local.txt \
         ros-${ROS_DISTRO}-gazebo-ros-control \
     && apt-fast install -q -y \
         --no-install-recommends \
-        ros-${ROS_DISTRO}-gazebo-ros-control \
         $(eval "echo $(cat /tmp/requirements.txt | xargs)") \
     && apt-get clean -q -y \
     && apt-get autoremove -q -y \
