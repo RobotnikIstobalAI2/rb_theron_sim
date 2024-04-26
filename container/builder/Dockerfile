@@ -138,7 +138,9 @@ FROM builder_${builder_type} AS builder
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Generate deb packages
-RUN CMAKE_BUILD_PARALLEL_LEVEL=$(($(nproc)*60/100)) generate_debs.sh
+RUN true \
+    && sed -i 's#$(nproc)#$(($(nproc)*60/100))#' generate_debs.sh \
+    && generate_debs.sh
 
 ARG output_pkg
 RUN tar -cvzf ${output_pkg} ./debs
