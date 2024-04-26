@@ -140,7 +140,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Generate deb packages
 RUN true \
     && sed -i 's#$(nproc)#$(($(nproc)*60/100))#' generate_debs.sh \
-    && generate_debs.sh
+    && /usr/local/bin/generate_debs.sh
 
 ARG output_pkg
 RUN tar -cvzf ${output_pkg} ./debs
