@@ -139,7 +139,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Generate deb packages
 RUN true \
-    && sed -i 's#$(nproc)#$(($(nproc)*60/100))#' /usr/local/bin/generate_debs.sh \
+    && sudo sed -i 's#$(nproc)#$(($(nproc)*60/100))#' /usr/local/bin/generate_debs.sh \
     && generate_debs.sh
 
 ARG output_pkg
