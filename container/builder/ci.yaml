@@ -3,7 +3,7 @@ name: ${IMAGE_NAME}
 services:
   container:
     image: >-
-      ${REGISTRY_BASE}/${REGISTRY_PROJECT}/${IMAGE_NAME}:rb-theron-gazebo-${DOCKER_ROS_DISTRO}-${GITHUB_REF_NAME}
+      ${REGISTRY_BASE}/${REGISTRY_PROJECT}/${IMAGE_NAME}:rb-theron-gazebo-${GITHUB_REF_NAME}
     build:
       context: ../..
       dockerfile: container/builder/Dockerfile
