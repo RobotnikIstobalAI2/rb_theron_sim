@@ -1,0 +1,19 @@
+---
+x-env-gazebo-params: &gazebo_params_env ../environment/simulation/gazebo-params-gpu.env
+x-env-nvidia-params: &nvidia_params_env ../environment/gui/nvidia-params.env
+x-runtime: &runtime
+  runtime: nvidia
+services:
+  gazebo-server:
+    <<: *runtime
+    env_file:
+      - *gazebo_params_env
+      - *nvidia_params_env
+  rviz:
+    <<: *runtime
+    env_file:
+      - *nvidia_params_env
+  gazebo-client:
+    <<: *runtime
+    env_file:
+      - *nvidia_params_env

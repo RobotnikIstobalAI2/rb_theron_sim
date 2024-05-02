@@ -1,0 +1,151 @@
+---
+x-env-nginx: &nginx_env ../environment/web/nginx-params.env
+x-env-ws: &ws_env ../environment/web/websocket-params.env
+x-env-uri-params: &uri_params_env ../environment/web/uri-params.env
+x-env-rviz: &rviz_env ../environment/web/rviz.env
+x-env-gazebo-client: &gazebo_client_env ../environment/web/gazebo-client.env
+x-env-lauch-comp: &launch_comp_env ../environment/web/launch-components.env
+
+x-vol-web: &web_vol
+  type: volume
+  source: web
+  target: /var/www/html/web
+
+x-vol-nginx-cfg: &nginx_cfg_vol
+  type: volume
+  source: config
+  target: /etc/nginx/templates/
+
+x-vol-data: &data_vol
+  type: volume
+  source: data
+  target: /home/robot/data
+
+x-php-common: &php_common
+  image: php:${PHP_VERSION}
+  restart: always
+  volumes:
+    - *web_vol
+
+x-nginx-common: &nginx_common
+  image: nginx:${NGINX_VERSION}
+  env_file:
+    - *nginx_env
+  volumes:
+    - *web_vol
+    - *nginx_cfg_vol
+
+x-ws-common: &ws_common
+  image: robotnik/websockify:${WEBSOCKIFY_VERSION}
+  restart: always
+  env_file:
+    - *ws_env
+
+x-robot-common: &robot_common
+  image: >-
+    robotnik/robotnik-simulations:rb-theron-gazebo-${DOCKER_ROS_DISTRO}-${VERSION}
+  restart: always
+  env_file:
+    - *uri_params_env
+  volumes:
+    - *data_vol
+
+volumes:
+  web:
+  config:
+  data:
+
+services:
+  web-files:
+    image: robotnik/novnc:${NOVNC_VERSION}
+    volumes:
+      - type: volume
+        source: web
+        target: /data/web
+      - type: volume
+        source: config
+        target: /data/config
+
+  fileserver:
+    image: robotnik/filebrowser:${FILEBROWSER_VERSION}
+    volumes:
+      - type: volume
+        source: data
+        target: /srv
+    ports:
+      - protocol: tcp
+        target: 80
+        published: ${FILEBROWSER_PORT}
+        mode: host
+
+  rviz:
+    <<: *robot_common
+
+  rviz-websocket:
+    <<: *ws_common
+    environment:
+      VNC_HOST: rviz
+    ports:
+      - protocol: tcp
+        target: 6080
+        published: ${WS_RVIZ_PORT}
+
+  rviz-webserver:
+    <<: *nginx_common
+    environment:
+      PHP_SERVER: rviz-phpserver
+    ports:
+      - target: 80
+        published: ${NGINX_RVIZ_PORT}
+        protocol: tcp
+        mode: host
+
+  rviz-phpserver:
+    <<: *php_common
+    environment:
+      WEBSOCKITY_PORT: ${WS_RVIZ_PORT}
+
+  gz-client:
+    <<: *robot_common
+
+  gz-client-websocket:
+    <<: *ws_common
+    environment:
+      VNC_HOST: gz-client
+    ports:
+      - protocol: tcp
+        target: 6080
+        published: ${WS_GZ_PORT}
+
+  gz-client-webserver:
+    <<: *nginx_common
+    environment:
+      PHP_SERVER: gz-client-phpserver
+    ports:
+      - target: 80
+        published: ${NGINX_GZ_PORT}
+        protocol: tcp
+        mode: host
+
+  gz-client-phpserver:
+    <<: *php_common
+    environment:
+      WEBSOCKITY_PORT: ${WS_GZ_PORT}
+
+---
+services:
+  gazebo-server:
+    env_file:
+      - *uri_params_env
+      - *launch_comp_env
+    environment:
+      FAKE_SCREEN: "true"
+  physics-change:
+    env_file:
+      - *uri_params_env
+  rviz:
+    env_file:
+      - *rviz_env
+  gz-client:
+    env_file:
+      - *gazebo_client_env

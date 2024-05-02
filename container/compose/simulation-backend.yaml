@@ -1,0 +1,46 @@
+---
+x-env-robot-param: &robot_params_env ../environment/simulation/robot-params.env
+x-env-robot-qty: &robot_qty_env ../environment/simulation/robot-qty.env
+x-env-robot-pose: &robot_pose_env ../environment/simulation/robots-pose.env
+x-env-gazebo-physics: &gazebo_physics_env ../environment/simulation/gazebo-physics.env
+x-env-lauch-comp: &launch_comp_env ../environment/gui/launch-components.env
+
+
+x-ros-common: &ros_common_services
+  image: >-
+    ${REGISTRY_BASE}robotnik/robotnik-simulations:rb-theron-gazebo-${DOCKER_ROS_DISTRO}-${VERSION}
+  runtime: runc
+  pull_policy: always
+  restart: on-failure
+
+x-group-add: &groups
+  - dialout
+  - plugdev
+  - video
+
+x-ros-visual-pri: &ros_common_pri
+  <<: *ros_common_services
+  privileged: true
+  group_add:
+    *groups
+  devices:
+    - "/dev/dri"
+
+name: rb-theron-sim
+services:
+  gazebo-server:
+    <<: *ros_common_pri
+    env_file:
+      - *launch_comp_env
+      - *robot_params_env
+      - *robot_qty_env
+      - *robot_pose_env
+
+  physics-change:
+    <<: *ros_common_services
+    env_file:
+      - *gazebo_physics_env
+
+  rviz:
+    env_file:
+      - *robot_qty_env

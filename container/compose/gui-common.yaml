@@ -1,0 +1,55 @@
+---
+x-env-graph-params: &graph_params_env ../environment/gui/graphical-params.env
+x-env-uri-params: &uri_params_env ../environment/gui/uri-params.env
+x-env-lauch-comp: &launch_comp_env ../environment/gui/launch-components.env
+x-env-rviz: &rviz_env ../environment/gui/rviz.env
+x-env-gazebo-client: &gazebo_client ../environment/gui/gazebo-client.env
+
+x-ros-common: &ros_visual_services
+  image: >-
+    ${REGISTRY_BASE}robotnik/robotnik-simulations:rb-theron-gazebo-${DOCKER_ROS_DISTRO}-${VERSION}
+  runtime: runc
+  pull_policy: always
+  restart: on-failure
+  network_mode: host
+  volumes:
+    - type: bind
+      source: /tmp/.X11-unix
+      target: /tmp/.X11-unix
+    - type: bind
+      source: /dev
+      target: /dev
+  devices:
+    - "/dev/dri"
+  env_file:
+    - *uri_params_env
+    - *graph_params_env
+
+x-ros-visual-pri: &ros_visual_services_priv
+  <<: *ros_visual_services
+  privileged: true
+
+services:
+  gazebo-server:
+    network_mode: host
+    env_file:
+      - *uri_params_env
+      - *launch_comp_env
+  physics-change:
+    network_mode: host
+    env_file:
+      - *uri_params_env
+  rviz:
+    <<: *ros_visual_services_priv
+  gazebo-client:
+    <<: *ros_visual_services
+
+---
+
+services:
+  rviz:
+    env_file:
+      - *rviz_env
+  gazebo-client:
+    env_file:
+      - *gazebo_client

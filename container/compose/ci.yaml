@@ -1,0 +1,7 @@
+---
+services:
+  container:
+    image: >-
+      ${REGISTRY_BASE}/${REGISTRY_PROJECT}/${IMAGE_NAME}:rb-theron-gazebo-${GITHUB_REF_NAME}
+    build:
+      network: host

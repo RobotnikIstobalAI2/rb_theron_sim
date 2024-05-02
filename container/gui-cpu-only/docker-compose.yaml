@@ -1,114 +1,15 @@
 ---
-name: rb-theron-sim
-services:
-  gazebo-server:
-    image: >-
-      robotnik/robotnik-simulations:rb-theron-gazebo-${DOCKER_ROS_DISTRO}-${VERSION}
-    network_mode: "host"
-    privileged: true
-    group_add:
-      - dialout
-      - plugdev
-      - video
-    env_file:
-      - ../environment/gui/cpu-only/gazebo-params.env
-      - ../environment/gui/launch-components.env
-      - ../environment/gui/robot-params.env
-      - ../environment/gui/robot-qty.env
-      - ../environment/gui/graphical-params.env
-      - ../environment/robots-pose.env
-    environment:
-      # # Uncomment for Debuging
-      # SIGNAL_DESTROY: SIGTERM
-      # STARTUP_TYPE: generic
-      # GENERIC_CMD: sleep infinity
-      ROS_MASTER_URI: "http://localhost:11311"
-      GAZEBO_MASTER_URI: "http://localhost:11345"
-    volumes:
-      - type: bind
-        source: /tmp/.X11-unix
-        target: /tmp/.X11-unix
-      - type: bind
-        source: /dev
-        target: /dev
-    devices:
-      - "/dev/dri"
+x-public-reg: &public_reg ../environment/compose/registry-docker-hub.env
+x-private-reg: &private_reg ../environment/compose/registry-robotnik.env
+x-version: &version ../environment/compose/version.env
 
-  rviz:
-    image: >-
-      robotnik/robotnik-simulations:rb-theron-gazebo-${DOCKER_ROS_DISTRO}-${VERSION}
-    network_mode: "host"
-    privileged: true
+include:
+  - path:
+      - ../compose/simulation-backend.yaml
+      - ../compose/gui-common.yaml
+      - ../compose/gui.cpu.yaml
+    project_directory: .
     env_file:
-      - ../environment/gui/robot-qty.env
-      - ../environment/gui/graphical-params.env
-    environment:
-      ROS_BU_LAUNCH: rviz_only.launch
-      CHECK_NODES: true
-      NODES_TO_CHECK: "/gazebo"
-    volumes:
-      - type: bind
-        source: /tmp/.X11-unix
-        target: /tmp/.X11-unix
-      - type: bind
-        source: /dev
-        target: /dev
-    devices:
-      - "/dev/dri"
-
-  gazebo-client:
-    image: >-
-      robotnik/robotnik-simulations:rb-theron-gazebo-${DOCKER_ROS_DISTRO}-${VERSION}
-    network_mode: "host"
-    env_file:
-      - ../environment/gui/robot-qty.env
-      - ../environment/gui/graphical-params.env
-    environment:
-      STARTUP_TYPE: generic
-      GEN_COMMAND: gzclient
-      SIGNAL_DESTROY: SIGTERM
-      CHECK_NODES: true
-      NODES_TO_CHECK: "/gazebo"
-    volumes:
-      - type: bind
-        source: /tmp/.X11-unix
-        target: /tmp/.X11-unix
-      - type: bind
-        source: /dev
-        target: /dev
-    devices:
-      - "/dev/dri"
-
-  physics-change:
-    image: >-
-      robotnik/robotnik-simulations:rb-theron-gazebo-${DOCKER_ROS_DISTRO}-${VERSION}
-    network_mode: "host"
-    restart: on-failure
-    env_file:
-      - ../environment/gazebo-physics.env
-    environment:
-      CHECK_NODES: true
-      NODES_TO_CHECK: "/gazebo"
-      STARTUP_TYPE: "generic"
-      SIGNAL_DESTROY: SIGTERM
-      GEN_COMMAND: |
-        source ~/.bashrc && {
-        rosservice call /gazebo/set_physics_properties "time_step: $${TIME_STEP}
-        max_update_rate: $${MAX_UPDATE_RATE}
-        gravity:
-          x: 0.0
-          y: 0.0
-          z: -9.8
-        ode_config: {
-            auto_disable_bodies: false,
-            sor_pgs_precon_iters: 0,
-            sor_pgs_iters: 40,
-            sor_pgs_w: 1.0,
-            sor_pgs_rms_error_tol: 0.0,
-            contact_surface_layer: 0.0,
-            contact_max_correcting_vel: 100.0,
-            cfm: 0.0,
-            erp: 0.2,
-            max_contacts: 20
-        }" || { echo notworking; exit 1;} ;} &&
-        rosservice call /gazebo/unpause_physics "{}" || exit 1
+      - *version
+      - *public_reg
+      # - *private_reg

@@ -1,0 +1,6 @@
+---
+x-env-gazebo-params: &gazebo_params_env ../environment/simulation/gazebo-params-cpu.env
+services:
+  gazebo-server:
+    env_file:
+      - *gazebo_params_env
