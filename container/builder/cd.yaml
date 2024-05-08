@@ -2,7 +2,7 @@
 include:
   - path:
       - ../compose/builder-common.yaml
-      - ../compose/ci.yaml
+      - ../compose/cd.yaml
     project_directory: .
     env_file:
       - ../environment/compose/builder-config.env
