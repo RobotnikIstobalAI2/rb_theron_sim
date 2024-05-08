@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fixed the wheels drift by updating `rb_theron_common` and added Robotnik's `gazebo_ros_control` install
 - Changed the variable `ROS_DISTRO` to `DOCKER_ROS_DISTRO` to avoid possible interface with system environment.
+- Refactor from `ci.yaml` (continuous integration) to `cd.yaml` (continuous delivery)
 
 ## [noetic-0.1.0] - 2024-02-05
 

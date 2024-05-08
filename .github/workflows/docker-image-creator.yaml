@@ -38,4 +38,4 @@ jobs:
           REGISTRY_PROJECT: ${{ vars.REGISTRY_PROJECT }}
         run: |
           cd container/builder
-          docker compose -f ci.yaml build --push
+          docker compose -f cd.yaml build --push
