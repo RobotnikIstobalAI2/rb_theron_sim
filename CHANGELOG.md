@@ -10,9 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added in `repos/rb_theron_sim.repos.yaml` the repository `gazebo_ros_pkgs` with the branch `noetic-devel`.
+- Added `sudo` in `container/builder/Dokerfile` for edit generate_debs.sh at line 142.
 
 ### Changed
-- Modified in `repos/rb_theron_sim.repos.yaml` the branch of the repository `rb_theron_common` from `noetic-0.1.0` to `noetic-devel`.
+- Modified in `repos/rb_theron_sim.repos.yaml` the branch of the repository `rb_theron_common` from `noetic-0.1.0` to `noetic-0.1.1-rc01`.
+- Modified in `container/builder/Dokerfile` at line 142:
+  - The nproc to use 60% on the cores.
+  - The path of generate debs.
+- Corrected version in `container/builder/ci.yaml`.
 
 
 ## [noetic-0.1.0] - 2024-02-05
