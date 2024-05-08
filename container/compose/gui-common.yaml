@@ -31,10 +31,7 @@ x-ros-visual-pri: &ros_visual_services_priv
 
 services:
   gazebo-server:
-    network_mode: host
-    env_file:
-      - *uri_params_env
-      - *launch_comp_env
+    <<: *ros_visual_services_priv
   physics-change:
     network_mode: host
     env_file:
@@ -47,6 +44,9 @@ services:
 ---
 
 services:
+  gazebo-server:
+    env_file:
+      - *launch_comp_env
   rviz:
     env_file:
       - *rviz_env

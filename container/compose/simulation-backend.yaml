@@ -23,8 +23,6 @@ x-ros-visual-pri: &ros_common_pri
   privileged: true
   group_add:
     *groups
-  devices:
-    - "/dev/dri"
 
 name: rb-theron-sim
 services:
