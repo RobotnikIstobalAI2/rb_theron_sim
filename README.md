@@ -376,13 +376,13 @@ If you want to enter on the container, first open another terminal and then you 
    
    **Note**: Use the double tab key (`[TAB][TAB]`) if you need help to auto-complete the name of the container.
 
-2. Use the `docker compose` command with the following structure `docker compose exec -it <container-name> bash`, for example:
+2. Use the `docker compose` command with the following structure `docker compose exec <container-name> bash`, for example:
    
    ```bash
-   docker compose exec -it rviz bash
+   docker compose exec rviz bash
    ```
 
-​    **Note**: Use the double tab key (`[TAB][TAB]`) if you need help to auto-complete the name of the container.
+  **Note**: Use the double tab key (`[TAB][TAB]`) if you need help to auto-complete the name of the container.
 
 **NOTE:** in both cases, to exit from the container run in the terminal the following command:
 
