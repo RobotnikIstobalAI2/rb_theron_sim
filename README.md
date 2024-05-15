@@ -305,27 +305,25 @@ To access the web interfaces use the following links on your browser:
 
 ### Docker Environment Variables
 
-To simplify the configuration of the docker compose files, the [compose-config.env](./container/environment/compose-config.env) file has been created with the common environment variables for all docker compose files.
+Given the three distinct configurations available for launching the RB-THERON simulation with Docker ([gui-cpu-only](./container/gui-cpu-only/compose.yaml), [gui-gpu-nvidia](./container/gui-gpu-nvidia/compose.yaml) and [web-cpu-only](./container/web-cpu-only/compose.yaml)), a structured approach has been implemented to prevent redundancy of environment variables within the YAML files of these configurations. This is achieved through the utilization of features such as `include` and `merge` to consolidate various files within the same YAML.
 
-The environment variables of the `compose-config.env` file are the following:
+To facilitate this process, the [environment](./container/environment) folder has been established. Within this directory, four additional subfolders have been created, each containing the essential environment variables required for all Docker Compose files. The subfolders of [environment](./container/environment) are as follows:
+- [compose](./container/environment/compose): This directory includes all the files with the environment variables needed for the YAMLs of the [gui-cpu-only](./container/gui-cpu-only/compose.yaml), [gui-gpu-nvidia](./container/gui-gpu-nvidia/compose.yaml) and [web-cpu-only](./container/web-cpu-only/compose.yaml) compose files.
+- [gui](./container/environment/gui): This folder contains all the files with the environment variables required for the docker of the compose files that utilizes graphical user interface (GUI). This directory includes the pertinent ROS materials and components necessary for GUI functionality.
+- [simulation](./container/environment/simulation): This directory includes all the files with the environment variables for the docker of the compose files that use the Gazebo simulation. Consequently, this directory includes the relevant ROS materials.
+- [web](./container/environment/web): This folder includes all the files with the environment variables employed for the docker of the compose files that run Rviz and Gazebo via the web interface. So, this directory includes the necessary ROS materials and components for web interface functionality.
 
-#### Base image
+The main subfolder is the [compose](./container/environment/compose) directory. The following are the files and environment variables contained within this directory:
 
-| Environment          | Default Value | Meaning                                       |
-| -------------------- | ------------- | --------------------------------------------- |
-| `REGISTRY_BASE`      | `""`          | Registry base name                            |
-| `IMAGE_BASE_VERSION` | `0.5.0`       | Image base version for building the container |
-| `ROS_DISTRO`         | `noetic`      | ROS distribution                              |
-| `VERSION`            | `devel`       | Repository version (branch or tag)            |
+#### Builder configuration ([builder-config.env](./container/environment/compose/builder-config.env))
 
-**NOTE:** `REGISTRY_BASE` is the variable to your private registry. Ensure that you add a final `/` in order to work, for example, `registry.robotnik.ws/`. The `REGISTRY_BASE` allows to download the images (if they are present on this registry) without the need of building them locally. By default is blank, which means that it is disabled. 
-
-#### Additional parameters
-
-| Environment    | Default Value            | Meaning                                                       |
-| -------------- | ------------------------ | ------------------------------------------------------------- |
-| `BUILDER_TYPE` | `local`                  | override or not git simulation code with local changes        |
-| `ROS_MIRROR`   | `ros.mirror.robotnik.ws` | ros apt mirror to use in order to increase the download speed |
+| Environment          | Default Value            | Meaning                                                       |
+| -------------------- | ------------------------ | ------------------------------------------------------------- |
+| `IMAGE_BASE_VERSION` | `0.5.0`                  | Image base version for building the container                 |
+| `IMAGE_NAME`         | `robotnik-simulations`   | Image name for building the container                         |
+| `REGISTRY_PROJECT`   | `robotnik`               | Registry proyect for building the container                   |
+| `BUILDER_TYPE`       | `local`                  | Override or not git simulation code with local changes        |
+| `ROS_MIRROR`         | `ros.mirror.robotnik.ws` | ROS apt mirror to use in order to increase the download speed |
 
 **NOTE:** the environment `BUILDER_TYPE` could have the following values:
 
@@ -334,17 +332,32 @@ The environment variables of the `compose-config.env` file are the following:
 | `base`  | use the simulation repository obtained in git from vcs file |
 | `local` | override simulation with local changes                      |
 
-#### Image versions used in the web docker compose file
+#### Registry base ([registry-docker-hub.env](./container/environment/compose/registry-docker-hub.env) or [registry-robotnik.env](./container/environment/compose/registry-robotnik.env))
 
-| Environment           | Default Value           | Meaning                                    |
-| --------------------- | ----------------------- | ------------------------------------------ |
-| `NOVNC_VERSION`       | `web-1.3.0-2-rc02`      | Image base version for web files           |
-| `FILEBROWSER_VERSION` | `2.24.2-1`              | Image base version for file server browser |
-| `WEBSOCKIFY_VERSION`  | `backend-0.11.0-1`      | Image base version for Rviz websocket      |
-| `NGINX_VERSION`       | `1.25.3-alpine3.18`     | Image base version for Rviz webserver      |
-| `PHP_VERSION`         | `8.0.30-fpm-alpine3.16` | Image base version for Rviz PHP server     |
+`REGISTRY_BASE` is the variable to your private registry, which allows to download the images (if they are present on this registry) without the need of building them locally. By default is blank, which means that it is disabled.
 
-#### Ports used in the web docker compose file
+- [registry-docker-hub.env](./container/environment/compose/registry-docker-hub.env): This file utilizes the Docker Hub registry, thereby disabling the private registry (hence the default blank value). It serves as the default configuration in the Docker Compose files.
+
+| Environment     | Default Value | Meaning            |
+| --------------- | ------------- | ------------------ |
+| `REGISTRY_BASE` | `""`          | Registry base name |
+
+- [registry-robotnik.env](./container/environment/compose/registry-robotnik.env): This file uses the Robotnik private registry.
+
+| Environment     | Default Value             | Meaning            |
+| --------------- | ------------------------- | ------------------ |
+| `REGISTRY_BASE` | `"registry.robotnik.ws/"` | Registry base name |
+
+**NOTE:** If you employ the `REGISTRY_BASE` variable to your private registry, ensure that you add a final `/` in order to work, for example, `registry.robotnik.ws/`.
+
+#### Builder version ([version.env](./container/environment/compose/version.env))
+
+| Environment         | Default Value | Meaning                            |
+| ------------------- | ------------- | ---------------------------------- |
+| `DOCKER_ROS_DISTRO` | `noetic`      | ROS distribution                   |
+| `VERSION`           | `devel`       | Repository version (branch or tag) |
+
+#### Ports used in the web docker compose file ([web-ports.env](./container/environment/compose/web-ports.env))
 
 | Environment        | Default Value | Meaning                             |
 | ------------------ | ------------- | ----------------------------------- |
@@ -354,11 +367,29 @@ The environment variables of the `compose-config.env` file are the following:
 | `WS_GZ_PORT`       | `7085`        | Port of the Gazebo client websocket |
 | `NGINX_GZ_PORT`    | `7082`        | Port of the Gazebo client webserver |
 
+#### Image versions used in the web docker compose file ([web-versions.env](./container/environment/compose/web-versions.env))
+
+| Environment           | Default Value           | Meaning                                    |
+| --------------------- | ----------------------- | ------------------------------------------ |
+| `NOVNC_VERSION`       | `web-1.3.0-2-rc02`      | Image base version for web files           |
+| `FILEBROWSER_VERSION` | `2.24.2-1`              | Image base version for file server browser |
+| `WEBSOCKIFY_VERSION`  | `backend-0.11.0-1`      | Image base version for Rviz websocket      |
+| `NGINX_VERSION`       | `1.25.3-alpine3.18`     | Image base version for Rviz webserver      |
+| `PHP_VERSION`         | `8.0.30-fpm-alpine3.16` | Image base version for Rviz PHP server     |
+
 ### Additional information
+
+#### Verify the environment variables used by the Docker simulation
+
+To check all the environment variables employed by the Docker RB-THERON simulation and their corresponding values, execute the following command in a terminal within the same directory as the `compose.yaml` file:
+
+```bash
+docker compose config
+```
 
 #### Finalize the Docker simulation
 
-To stop the Docker RB-THERON simulation use in a terminal in the same folder as the `docker-compose.yaml` the following command:
+To stop the Docker RB-THERON simulation use in a terminal in the same folder as the `compose.yaml` the following command:
 
 ```bash
 docker compose down
