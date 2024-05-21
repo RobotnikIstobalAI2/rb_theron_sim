@@ -237,7 +237,7 @@ The simulation requires a graphical user interface (GUI). If you have an nvidia 
 
 - [docker engine](https://docs.docker.com/engine/install/ubuntu/)
 - [docker compose plugin](https://docs.docker.com/compose/install/linux/)
-- nvidia-drivers
+- [nvidia-drivers](https://ubuntu.com/server/docs/nvidia-drivers-installation)
 - [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
 
 ### Simulation installation
