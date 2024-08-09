@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>rb_theron_sim</name>
-  <version>0.0.0</version>
+  <version>0.1.1</version>
   <description>The rb_theron_sim package</description>
 
   <maintainer email="info@robotnik.es">Robotnik</maintainer>
