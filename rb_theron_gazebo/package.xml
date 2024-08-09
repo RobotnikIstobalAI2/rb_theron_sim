@@ -6,7 +6,7 @@
 
   <maintainer email="info@robotnik.com">Robotnik</maintainer>
 
-  <license>BSD</license>
+  <license>BSD-3-Clause</license>
 
   <!-- <url type="website">http://wiki.ros.org/robotnik_move_base</url> -->
 
