@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Updated the version of the `package.xml` files to `0.1.1`.
+- Modified in `repos/rb_theron_sim.repos.yaml` the branch of the repository `robotnik_msgs` from `ros` to `ros-devel`.
+- Modified in `repos/rb_theron_sim.repos.yaml` the branch of the repository `robotnik_pad` from `master` to `ros-devel`.
 - Modified in `repos/rb_theron_sim.repos.yaml` the branch of the repository `rb_theron_common` from `noetic-0.1.0` to `noetic-0.1.1-rc01`.
 - Modified in `container/builder/Dokerfile` The nproc to use 60% on the cores on deb generation in order to save ram avoid machine crash (specially in gazebo_ros_pkgs).
 - New docker compose structure with, include, override and merge features (consult docker compose documention for futher information). 
