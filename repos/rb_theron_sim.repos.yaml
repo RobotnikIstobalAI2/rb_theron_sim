@@ -42,7 +42,7 @@ repositories:
   src/robotnik_msgs:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_msgs.git
-    version: ros
+    version: ros-devel
   src/robotnik_sensors:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_sensors.git
@@ -54,7 +54,7 @@ repositories:
   src/robotnik_pad:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_pad.git
-    version: master
+    version: ros-devel
   src/laser_filters:
     type: git
     url: https://github.com/RobotnikAutomation/laser_filters.git
