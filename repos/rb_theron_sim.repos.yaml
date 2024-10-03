@@ -46,12 +46,12 @@ repositories:
   src/robotnik_sensors:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_sensors.git
-    version: ros-devel
-    # version: noetic-devel
+    version: e9ba6124d5863c71135afb6f0559d865906a686a # ros-devel (Sep 18, 2024)
   src/rcomponent:
     type: git
     url: https://github.com/RobotnikAutomation/rcomponent.git
-    version: master
+    version: ros-devel
+    # version: master
   src/robotnik_pad:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_pad.git
