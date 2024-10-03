@@ -50,12 +50,11 @@ repositories:
   src/rcomponent:
     type: git
     url: https://github.com/RobotnikAutomation/rcomponent.git
-    version: ros-devel
-    # version: master
+    version: 83f73ed70c9e57b03c5f2156c5ec2d214eff631a # ros-devel (Aug 9, 2024)
   src/robotnik_pad:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_pad.git
-    version: ros-devel
+    version: 9dc97937fd6369cceaf12198bd392d89e42b2230 # ros-devel (Sep 26, 2024)
   src/laser_filters:
     type: git
     url: https://github.com/RobotnikAutomation/laser_filters.git
@@ -63,7 +62,7 @@ repositories:
   src/ira_laser_tools:
     type: git
     url: https://github.com/RobotnikAutomation/ira_laser_tools.git
-    version: master
+    version: a6a5741833f42bb25bc2e3ddef4a16cdf978cf76 # master (Sep 16, 2024)
   src/pose_publisher:
     type: git
     url: https://github.com/RobotnikAutomation/pose_publisher.git
@@ -71,7 +70,7 @@ repositories:
   src/spatio_temporal_voxel_layer:
     type: git
     url: https://github.com/SteveMacenski/spatio_temporal_voxel_layer.git
-    version: noetic-devel
+    version: 5e06daf8983f3b0363cddec4a103d320da3b9d9a # noetic-devel
   src/pad_teleop:
     type: git
     url: https://github.com/RobotnikAutomation/teleop_panel.git
@@ -79,7 +78,8 @@ repositories:
   src/robotnik_base_hw_sim:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_base_hw_sim.git
-    version: master
+    version: ros-devel
+    # version: master
   src/robot_localization_utils:
     type: git
     url: https://github.com/RobotnikAutomation/robot_localization_utils.git
