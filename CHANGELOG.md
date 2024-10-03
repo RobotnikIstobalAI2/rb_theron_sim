@@ -11,14 +11,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added licenses.
 - Added in `repos/rb_theron_sim.repos.yaml` the repository `gazebo_ros_pkgs` with the branch `noetic-devel`.
-- Added docker generation cd pipelines for docker image building via github actions on 
-
+- Added docker generation cd pipelines for docker image building via github actions.
 
 ### Changed
 - Updated the version of the `package.xml` files to `0.1.1`.
-- Modified in `repos/rb_theron_sim.repos.yaml` the branch of the repository `robotnik_msgs` from `ros` to `ros-devel`.
-- Modified in `repos/rb_theron_sim.repos.yaml` the branch of the repository `robotnik_pad` from `master` to `ros-devel`.
-- Modified in `repos/rb_theron_sim.repos.yaml` the branch of the repository `rb_theron_common` from `noetic-0.1.0` to `noetic-0.1.1-rc01`.
+- Modified in `repos/rb_theron_sim.repos.yaml` the branches of the following repositories:
+  - In `rb_theron_common` from `noetic-0.1.0` to `noetic-0.1.1`.
+  - In `gazebo_ros_pkgs` from `noetic-devel` to `noetic-devel`, commit of Sep 16, 2024.
+  - In `robotnik_msgs` from `ros` to `ros-devel`, commit of Sep 24, 2024.
+  - In `robotnik_sensors` from `noetic-devel` to `ros-devel`, commit of Sep 18, 2024.
+  - In `rcomponent` from `master` to `ros-devel`, commit of Aug 9, 2024.
+  - In `robotnik_pad` from `master` to `ros-devel`, commit of Sep 26, 2024.
+  - In `ira_laser_tools` from `master` to `master`, commit of Sep 16, 2024.
+  - In `spatio_temporal_voxel_layer` from `noetic-devel` to `noetic-devel`, commit of Aug 14, 2023.
+  - In `robotnik_base_hw_sim` from `master` to `ros-devel`, commit of Sep 19, 2024.
+  - In `robot_localization_utils` from `master` to `master`, commit of Aug 30, 2021.
 - Modified in `container/builder/Dokerfile` The nproc to use 60% on the cores on deb generation in order to save ram avoid machine crash (specially in gazebo_ros_pkgs).
 - New docker compose structure with, include, override and merge features (consult docker compose documention for futher information). 
   - Definition of the services are made only once for the 3 docker compose run flavors.
