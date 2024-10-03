@@ -78,9 +78,8 @@ repositories:
   src/robotnik_base_hw_sim:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_base_hw_sim.git
-    version: ros-devel
-    # version: master
+    version: 7a687349856df99f19e916f907bd534c1801cb64 # ros-devel (Sep 19, 2024)
   src/robot_localization_utils:
     type: git
     url: https://github.com/RobotnikAutomation/robot_localization_utils.git
-    version: master
+    version: e9c2ad4516f7ebf1782f6852f3baa3c6e30bd5c4 # master (Aug 30, 2021)
