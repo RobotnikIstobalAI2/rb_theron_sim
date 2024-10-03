@@ -38,15 +38,16 @@ repositories:
   src/gazebo_ros_pkgs:
     type: git
     url: https://github.com/RobotnikAutomation/gazebo_ros_pkgs.git
-    version: noetic-devel
+    version: 46d8810e24751071135f43fac304ed2b85374ce5 # noetic-devel (Sep 16, 2024)
   src/robotnik_msgs:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_msgs.git
-    version: ros-devel
+    version: 108911102ab31dd52da31935e588b831707feb80 # ros-devel (Sep 24, 2024)
   src/robotnik_sensors:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_sensors.git
-    version: noetic-devel
+    version: ros-devel
+    # version: noetic-devel
   src/rcomponent:
     type: git
     url: https://github.com/RobotnikAutomation/rcomponent.git
